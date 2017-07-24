@@ -11,7 +11,8 @@
 |SMs	       |       20     |      28    	 |     30    	|    20    |
 |Cores/SM    |	     128    |	    128      |	    128   |	   128   |
 |Memory Clock|   10008 MHz	|   11008 MHz	 | 10008 MHz	| 10008 MHz|
-|CUDA Cores  |     2560     |     3584     |    3840    |   2560   |
+|Memory Interface(bus)|	256-bit	|352-bit	|384-bit	|256-bit|
+
 
 
 
