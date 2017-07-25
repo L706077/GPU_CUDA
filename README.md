@@ -11,8 +11,8 @@
 |SMs	       |       20     |      28    	 |     30    	|    20    |
 |Cores/SM    |	     128    |	    128      |	    128   |	   128   |
 |Memory Clock|   10008 MHz	|   11008 MHz	 | 10008 MHz	| 10008 MHz|
-|Memory Interface(bus)|	256-bit	|352-bit	|384-bit	|256-bit|
-
+|Memory Interface(bus)|	 256-bit|  352-bit |  384-bit 	|  256-bit |
+|Memory Bandwidth|	320GB/s	|   484 GB/s	 |  347 GB/s	| 192 GB/s |
 
 
 
