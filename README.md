@@ -14,7 +14,7 @@
 |Memory Interface(bus)|	 256-bit|  352-bit |  384-bit 	|  256-bit |
 |Memory Bandwidth|	320GB/s	|   484 GB/s	 |  347 GB/s	| 192 GB/s |
 | Base Clock |   1607MHz    |	   1480 MHz  |	 1303 MHz	| 810 MHz  |
-|Compute|9TFLOPS(8873GFLOPS)|	11.5TFLOPS   |9TFLOPS(11,758 GFLOPS)|	5.5TFLOPS(5,443 GFLOPS)|
+|Compute|9TFLOPS(8873GFLOPS)|	11.5TFLOPS   |9TFLOPS(11,758GFLOPS)|5.5TFLOPS(5,443GFLOPS)|
 
 
 
