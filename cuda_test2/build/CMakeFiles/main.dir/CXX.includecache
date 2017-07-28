@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/Desktop/gitTUT/GPU_CUDA/cuda_test2/test2.cpp
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+

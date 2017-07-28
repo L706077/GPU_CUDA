@@ -1,0 +1,4 @@
+/home/ubuntu/Desktop/gitTUT/GPU_CUDA/cuda_test1/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/Desktop/gitTUT/GPU_CUDA/cuda_test1/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/Desktop/gitTUT/GPU_CUDA/cuda_test1/build/CMakeFiles/main.dir
+/home/ubuntu/Desktop/gitTUT/GPU_CUDA/cuda_test1/build/CMakeFiles/test1_cu_obj.dir
