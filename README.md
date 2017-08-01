@@ -32,7 +32,7 @@ thread: 一個CUDA的併行程序(kernel)會以多個threads來執行，為3D結
 block: 由多個threads所組成，同一block中之threads可以同步，也可利用shared memory來共享資料，為3D結構 <br />
 grid: 由多個blocks所組成，只能為2D結構 <br />
 warp: 32個threads組成一個warp，warp是調度和運行的基本單元。warp中所有threads並行的執行相同的指令，一個warp需要佔用一個SM運行，多個warps需要輪流進入SM，故只能有一個warp正被執行，，一個GPU上resident thread最多只有SM*32個 <br />
->>>>resident thread
+    resident thread
 
 ### Memory
 Registers:  <br />
