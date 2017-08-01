@@ -68,7 +68,9 @@
 * **cudaFree()**: 釋放device記憶體 <br />
 * **cudaMemcpy()**: 記憶體複製 <br />
 * **cudaGetErrorstring()**: 錯誤字串解釋 <br />
-* **~~cudaThreadSynchronize()~~**/**cudaDeviceSynchronize()**: 同步化 <br />
+* **~~cudaThreadSynchronize() 舊的~~** / **cudaDeviceSynchronize()**: 同步化，在運行內核時須用到，內核中所有線程式不同步的，直到所有任務計算完畢時須同步。 <br />
+* **cudaStreamSynchronize()**: 與cudaDeviceSynchronize()類似功能，但函式帶有一參數Stream。<br />
+
 
 * **kernel**: <br />
    **宣告**: <br />
