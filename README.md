@@ -18,7 +18,7 @@
 |Architecture|   Pascal     |	   Pascal    |	 Pascal 	 | Pascal   |
 |Threads/Warp|	   32        |       32     |  	 32     |   32     |
 |MaxThreadDim|(1024, 1024, 64)|            |          	|          |
-|MaxGridSize |(2^32/2, 65535, 65535)| |     |     |
+|MaxGridSize |(2^32/2,65535,65535)| |     |     |
 |MaxThreadPerBlock|  1024	  |     	   |    	|     |
 |PerBlockSharedMem|49152kb  |     	   |    	|     |
 |PerBlockRegistMem|65536kb  |     	   |     |     |
