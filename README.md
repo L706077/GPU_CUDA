@@ -24,11 +24,11 @@
 ## CUDA Architecture
 ### hardware
 SP(Streaming Process):<br />
-SM(Streaming Multiprocessor):
+SM(Streaming Multiprocessor):<br />
 
 ### software
-thread:\n
-block:
-grid:
-warp:
+thread:<br />
+block:<br />
+grid:<br />
+warp:<br />
 
