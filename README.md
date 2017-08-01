@@ -31,7 +31,7 @@ SM(Streaming Multiprocessor): 由多個SP加上一些資源而組成，每個SM�
 * thread: 一個CUDA的併行程序(kernel)會以多個threads來執行，為3D結構。 <br />
 * block: 由多個threads所組成，同一block中之threads可以同步，也可利用shared memory來共享資料，為3D結構。 <br />
 * grid: 由多個blocks所組成，只能為2D結構。 <br />
-* warp: 32個threads組成一個warp，warp是調度和運行的基本單元。warp中所有threads並行的執行相同的指令，一個warp需要佔用一個SM運行，多個warps需要輪流         進入SM，故只能有一個warp正被執行。 <br />
+* warp: 32個threads組成一個warp，warp是調度和運行的基本單元。warp中所有threads並行的執行相同的指令，一個warp需要佔用一個SM運行，多個warps需要輪流進入SM，故只能有一個warp正被執行。 <br />
   * active warp: 指已分配給SM的warp，且該warp所需資源如暫存器也已分配。 <br />
   * resident thread: 為一個正在SM裡同時執行之warp數，一個GPU上resident thread最多只(SM)x32個。 <br />
 
