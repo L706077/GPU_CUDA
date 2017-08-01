@@ -72,7 +72,7 @@
 
 * **kernel**: <br />
    **宣告**: <br />
-      ___global___ void kernel_name(type1 arg1, type2 arg2, ...){ <br />
+      ˊ___ˋglobal___ void kernel_name(type1 arg1, type2 arg2, ...){ <br />
       函式內容 <br />
       }; <br />
    **呼叫**: <br />
