@@ -23,7 +23,7 @@
 
 ## CUDA Architecture
 ### hardware
-SP(Streaming Process):
+SP(Streaming Process):<br />
 SM(Streaming Multiprocessor):
 
 ### software
