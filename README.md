@@ -21,5 +21,14 @@
 
 
 
+## CUDA Architecture
+### hardware
+SP(Streaming Process):
+SM(Streaming Multiprocessor):
 
+### software
+thread:
+block:
+grid:
+warp:
 
