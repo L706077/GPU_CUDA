@@ -78,7 +78,6 @@
    **呼叫**: <br />
       kernel<<< blocks, threads >>>( arg1, arg2 ); <br />
 
-   ** 任務(kernel)** <br />
   **任務(kernel)** <br />
         |                           +--> 區塊(排or班) +--> 執行緒(小兵) <br />
         |                           |                                +--> 執行緒(小兵) <br />
