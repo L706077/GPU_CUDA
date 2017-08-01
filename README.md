@@ -23,12 +23,17 @@
 
 ## CUDA Architecture
 ### hardware
-SP(Streaming Process):<br />
-SM(Streaming Multiprocessor):<br />
+SP(Streaming Process):最基本的處理單元，一個SP可執行一個thread <br />
+SM(Streaming Multiprocessor):由多個SP加上一些資源而組成，<br />
+Registers: <br />
+Shared Memory: <br />
+Local Memory: <br />
+Global Memory: <br />
+
 
 ### software
-thread:<br />
-block:<br />
-grid:<br />
-warp:<br />
+thread: <br />
+block: <br />
+grid: <br />
+warp: <br />
 
