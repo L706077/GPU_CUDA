@@ -68,7 +68,7 @@
 * **cudaFree()**: 釋放device記憶體 <br />
 * **cudaMemcpy()**: 記憶體複製 <br />
 * **cudaGetErrorstring()**: 錯誤字串解釋 <br />
-* **cudaThreadSynchronize()**: 同步化 <br />
+* **~~cudaThreadSynchronize()~~**/**cudaDeviceSynchronize()**: 同步化 <br />
 
 * **kernel**: <br />
    **宣告**: <br />
