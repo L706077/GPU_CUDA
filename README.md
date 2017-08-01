@@ -71,6 +71,14 @@
 * **cudaThreadSynchronize()**: 同步化 <br />
 
 * **kernel**:
-      __global__ void kernel_name(type1 arg1, type2 arg2, ...){
+   **宣告**:
+      __global__ void kernel_name(type1 arg1, type2 arg2, ...){
       函式內容
       };
+ 
+   **呼叫**:
+      kernel<<< blocks, threads >>>( arg1, arg2 );
+
+
+
+
