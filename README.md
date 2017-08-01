@@ -45,7 +45,7 @@ Device Memory: 裝置記憶體 <br />
 | name       |   position   | read/write speed |
 | ---------  | ------------ | ------------ |
 |  Registers |    GPU   |     immediately    |  
-|  Shared Memory  |     GPU    |   4 cycles   |
+|  Shared Memory  |   GPU      |   4 cycles   |
 |  Host Memory    |   PC Board | (PCI-E) Slow |  
 |  Device Memory  |     GPU    |400-600 cycles|  
 
