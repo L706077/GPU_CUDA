@@ -29,6 +29,12 @@
 
 
 ## CUDA Architecture
+### Equipment
+* **主機 (host)**  ：插顯示卡那台PC。
+* **裝置 (device)**：顯示卡。
+* **核心 (kernel)**：在顯示卡上執行的程式碼區段。
+
+
 ### Hardware
 * **SP(Streaming Process)**: 最基本的處理單元，一個SP可執行一個thread。 <br />
 * **SM(Streaming Multiprocessor)**: 由多個SP加上一些資源而組成，每個SM所擁有之SP數量依據不同GPU架構而不同，Kepler=128,Maxwell=128,Pascal=128，任一GPU則有多個SM，軟體定義上SP是平行運算，但物理實現上並非所有SP能夠同時平行運算，有些會處於掛起、就緒等其他狀態。 <br />
