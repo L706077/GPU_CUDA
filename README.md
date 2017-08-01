@@ -42,9 +42,9 @@ Shared Memory: 共享記憶體 <br />
 Host Memory: 主機記憶體 <br />
 Device Memory: 裝置記憶體 <br />
 
-| name       |    position  | read/write speed |
+| name       |   position   | read/write speed |
 | ---------  | ------------ | ------------ |
-|  Registers |    GPU    |     immediately    |  
+|  Registers |    GPU   |     immediately    |  
 |  Shared Memory  |     GPU    |   4 cycles   |
 |  Host Memory    |   PC Board | (PCI-E) Slow |  
 |  Device Memory  |     GPU    |400-600 cycles|  
