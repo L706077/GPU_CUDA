@@ -70,13 +70,13 @@
 * **cudaGetErrorstring()**: 錯誤字串解釋 <br />
 * **cudaThreadSynchronize()**: 同步化 <br />
 
-* **kernel**:
-   **宣告**:
+* **kernel**: <br />
+   **宣告**: <br />
       __global__ void kernel_name(type1 arg1, type2 arg2, ...){
       函式內容
       };
  
-   **呼叫**:
+   **呼叫**: <br />
       kernel<<< blocks, threads >>>( arg1, arg2 );
 
 
