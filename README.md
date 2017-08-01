@@ -75,7 +75,6 @@
       __global__ void kernel_name(type1 arg1, type2 arg2, ...) {<br />
       函式內容 <br />
       }; <br />
- 
    **呼叫**: <br />
       kernel<<< blocks, threads >>>( arg1, arg2 ); <br />
 
