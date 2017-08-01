@@ -15,10 +15,10 @@
 |Memory Bandwidth|	320GB/s	|   484 GB/s	 |  347 GB/s	| 192 GB/s |
 | Base Clock |   1607MHz    |	   1480 MHz  |	 1303 MHz	| 810 MHz  |
 |Compute|9TFLOPS(8873GFLOPS)|	11.5TFLOPS   |9TFLOPS(11,758GFLOPS)|5.5TFLOPS(5,443GFLOPS)|
-|Architecture|   Pascal     |	   Pascal    |	 Pascal 	| Pascal   |
+|Architecture|   Pascal     |	   Pascal    |	 Pascal 	 | Pascal   |
 |Threads/Warp|	   32        |       32     |  	 32     |   32     |
-|MaxThreadDim|(1024,1024,64)|              |          	|          |
-|MaxGridSize |(2^32/2,65535,65535)|   |     |     |
+|MaxThreadDim|(1024, 1024, 64)|            |          	|          |
+|MaxGridSize |(2^32/2, 65535, 65535)| |     |     |
 |MaxThreadPerBlock|  1024	  |     	   |    	|     |
 |PerBlockSharedMem|49152kb  |     	   |    	|     |
 |PerBlockRegistMem|65536kb  |     	   |     |     |
