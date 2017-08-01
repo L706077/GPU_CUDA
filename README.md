@@ -27,7 +27,7 @@ SP(Streaming Process):
 SM(Streaming Multiprocessor):
 
 ### software
-thread:＜/br＞
+thread:\n
 block:
 grid:
 warp:
