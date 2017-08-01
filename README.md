@@ -30,9 +30,9 @@
 
 ## CUDA Architecture
 ### Equipment
-* **主機 (host)**  ：插顯示卡那台PC。
+* **主機 (host)**  ：顯示卡那台PC。
 * **裝置 (device)**：顯示卡。
-* **核心 (kernel)**：在顯示卡上執行的程式碼區段。
+* **核心 (kernel)**：顯示卡上執行的程式碼區段。
 
 
 ### Hardware
@@ -70,3 +70,7 @@
 * **cudaGetErrorstring()**: 錯誤字串解釋 <br />
 * **cudaThreadSynchronize()**: 同步化 <br />
 
+* **kernel**:
+      __global__ void kernel_name(type1 arg1, type2 arg2, ...){
+      函式內容
+      };
