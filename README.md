@@ -19,7 +19,7 @@
 |Threads/Warp|	   32       |       32     |  	 32     |   32     |
 |    TDP     |     250W	    |     180W	   |     250 W	|   75 W   |
 
-
+---
 
 ## CUDA Architecture
 ### hardware
