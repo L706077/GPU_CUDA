@@ -1,0 +1,4 @@
+/home/ubuntu/Desktop/cuda_test/test5_1/build/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/Desktop/cuda_test/test5_1/build/CMakeFiles/edit_cache.dir
+/home/ubuntu/Desktop/cuda_test/test5_1/build/CMakeFiles/main.dir
+/home/ubuntu/Desktop/cuda_test/test5_1/build/CMakeFiles/test5_cu_obj.dir

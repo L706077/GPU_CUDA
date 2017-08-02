@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -pthread -lpthread   CMakeFiles/main.dir/test5.cpp.o CMakeFiles/main.dir/main_generated_test5_cu.cu.o  -o main -rdynamic /usr/local/cuda-8.0/lib64/libcudart.so libtest5_cu_obj.a /usr/local/cuda-8.0/lib64/libcudart.so -Wl,-rpath,/usr/local/cuda-8.0/lib64 

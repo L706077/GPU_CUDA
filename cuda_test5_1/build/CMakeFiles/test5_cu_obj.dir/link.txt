@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtest5_cu_obj.a  CMakeFiles/test5_cu_obj.dir/test5_cu_obj_generated_test5_cu.cu.o
+/usr/bin/ranlib libtest5_cu_obj.a

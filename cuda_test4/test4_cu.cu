@@ -70,12 +70,13 @@ void OutputSpec( const cudaDeviceProp sDevProp )
 {
   printf( "Device name: %s \n", sDevProp.name );
   printf( "Device memory: %d \n", sDevProp.totalGlobalMem );
-  printf( "Memory per-block: %d \n", sDevProp.sharedMemPerBlock );
-  printf( "Register per-block: %d \n", sDevProp.regsPerBlock );
+  printf( "shared Memory per-block: %d \n", sDevProp.sharedMemPerBlock );
+  printf( "Register mMemory per-block: %d \n", sDevProp.regsPerBlock );
   printf( "Warp size: %d \n", sDevProp.warpSize );
   printf( "Memory pitch: %d \n", sDevProp.memPitch );
   printf( "Constant Memory: %d \n", sDevProp.totalConstMem );
   printf( "Max thread per-block: %d \n", sDevProp.maxThreadsPerBlock );
+  printf( "Max Blocks per-grid: %d \n", sDevProp.maxBlocksPerGrid );
   printf( "Max thread dim: ( %d, %d, %d ) \n", sDevProp.maxThreadsDim[0], sDevProp.maxThreadsDim[1], sDevProp.maxThreadsDim[2] );
   printf( "Max grid size: ( %d, %d, %d ) \n", sDevProp.maxGridSize[0], sDevProp.maxGridSize[1], sDevProp.maxGridSize[2] );
   printf( "Ver: %d.%d \n", sDevProp.major, sDevProp.minor );
