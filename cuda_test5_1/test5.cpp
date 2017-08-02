@@ -134,11 +134,11 @@ t6=clock();
 
     printf("out loop sumArraysOnGPU Time elapsed:  %f sec\n",(double)(t6-t5)/(CLOCKS_PER_SEC));
 
-	cudaMemcpy(gpuRef, d_C1, nBytes, cudaMemcpyDeviceToHost);
+    cudaMemcpy(gpuRef, d_C1, nBytes, cudaMemcpyDeviceToHost);
 
 t7=clock();	
     printf("out loop sumArraysOnGPU total Time:  %f sec\n",(double)(t7-t5)/(CLOCKS_PER_SEC));
-	checkResult1(hostRef, gpuRef, nElem);
+    checkResult1(hostRef, gpuRef, nElem);
 
 
     cudaFree(d_A1);
