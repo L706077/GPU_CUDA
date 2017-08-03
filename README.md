@@ -163,7 +163,7 @@ struct uint3{ <br />
 unsigned int x, y, z; <br />
 } <br />
 
-** uint3 only be used on .cu file,but dim3 can be used on .cpp/.cu file**
+**uint3 only be used on .cu file,but dim3 can be used on .cpp/.cu file**
 
 * **threadIdx:** thread index
 * **blockIdx:** block index
