@@ -1,4 +1,9 @@
 # GPU_CUDA
+## reference:
+[1](http://www.jianshu.com/p/0afb1305b1ae)
+[2](http://blog.csdn.net/csgxy123/article/details/9704461)
+
+
 ***CUDA=Compute Unified Device Architecture***
 
 ## GPU Spec
