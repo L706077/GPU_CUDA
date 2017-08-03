@@ -46,7 +46,7 @@
 |sm_30 and sm_32 | + Kepler support + Unified memory programming|
 |sm_35 | + Dynamic parallelism support|
 |sm_50, sm_52, and sm_53 | + Maxwell support|
-
+| --- | --- |
 |Virtul Architecture| |
 | --- | --- |
 | Architecture  | Feature |
