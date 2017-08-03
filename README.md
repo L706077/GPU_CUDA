@@ -3,7 +3,7 @@
 
 ## GPU Spec
 
-|            |    GTX1080   |   GTX1080Ti  | Tesla P4   | Tesla P4 |
+|            |    GTX1080   |   GTX1080Ti  | Tesla P40   | Tesla P4 |
 | ---------  | ------------ | ------------ | ---------- | -------- |
 | GPU Name   |     GP104    |     GP102    |   GP102    |  GP104   |
 | Process    |     16nm     |     16nm     |    16nm    |   16nm   |
