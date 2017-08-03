@@ -57,6 +57,26 @@
 |compute_50, compute_52, compute_53 | + Maxwell support|
 |compute_60, compute_61 | + Pascal support|
 
+***Supported on CUDA 7 and later*** <br />
+* SM20 – Older cards such as GeForce GT630 <br />
+* SM30 – Kepler architecture (generic – Tesla K40/K80)
+Adds support for unified memory programming <br />
+* SM35 – More specific Tesla K40 
+Adds support for dynamic parallelism. Shows no real benefit over SM30 in my experience. <br />
+* SM37 – More specific Tesla K80 
+Adds a few more registers. Shows no real benefit over SM30 in my experience <br />
+* SM50 – Tesla/Quadro M series <br />
+* SM52 – Quadro M6000 , GTX 980/Titan <br />
+* SM53 – Tegra TX1 / Tegra X1 <br />
+
+***Supported on CUDA 8 and later*** <br />
+* SM60 – GP100/Pascal P100 – DGX-1 (Generic Pascal) <br />
+* SM61 – GTX 1080, 1070, 1060, Titan Xp, Tesla P40, Tesla P4 <br />
+* SM62 – Probably Drive-PX2 <br />
+
+***Supported on CUDA 9 and later***  <br />
+* SM70 – Tesla V100 <br />
+
 ---
 
 ## CUDA Architecture
