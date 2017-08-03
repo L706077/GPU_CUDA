@@ -130,7 +130,7 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
 * **cudaStreamSynchronize()**: 與cudaDeviceSynchronize()類似功能，但函式帶有一參數Stream。<br />
 
 
-* **kernel**: <br />
+* **kernel**: one kernel = one grid   <br />
    **宣告**: <br />
       ___ global ___ void kernel_name(type1 arg1, type2 arg2, ...){ <br />
                  函式內容 <br />
@@ -167,7 +167,7 @@ uint3 only be used on .cu file, dim3 can be used on .cpp/.cu file
 * **threadIdx:** thread index
 * **blockIdx:** block index
 * **blockDim:**  (threadsPerBlock)
-* **gridDim:**  (blocksPerGrid)
+* **gridDim:**  (numBlocks)
 
 
 
