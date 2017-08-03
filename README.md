@@ -155,7 +155,7 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
                                                   +--> 執行緒(小兵)
                                                   +--> 執行緒(小兵)
                                                   +--> 執行緒(小兵)
-```
+   ```
 
 ### CUDA only read variable
 #### dim3 = uint3
