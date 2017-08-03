@@ -47,7 +47,7 @@
 |sm_35 | + Dynamic parallelism support|
 |sm_50, sm_52, sm_53 | + Maxwell support|
 
-|Virtul Architecture| |
+|Virtul Architecture |
 | --- | --- |
 | Architecture  | Feature |
 |compute_20 |Basic features + Fermi support|
