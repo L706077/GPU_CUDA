@@ -46,6 +46,7 @@
 |sm_30, sm_32 | + Kepler support + Unified memory programming|
 |sm_35 | + Dynamic parallelism support|
 |sm_50, sm_52, sm_53 | + Maxwell support|
+|sm_60, sm_61 | + Pascal support|
 
 #### Virtul Architecture 
 | Architecture  | Feature |
@@ -54,7 +55,7 @@
 |compute_30, compute_32 | + Kepler support + Unified memory programming|
 |compute_35 | + Dynamic parallelism support|
 |compute_50, compute_52, compute_53 | + Maxwell support|
-
+|compute_60, compute_61 | + Pascal support|
 
 ---
 
