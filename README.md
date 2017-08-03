@@ -38,15 +38,15 @@
 |.so| Shared object file|
 ---
 
-Architecture Feature
-|真实架构| |
+### Architecture Feature
+|Real Architecture| |
 | --- | --- |
 | Architecture  | Feature |
 |sm_20| Basic features + Fermi support|
 |sm_30 and sm_32 | + Kepler support + Unified memory programming|
 |sm_35 | + Dynamic parallelism support
 |sm_50, sm_52, and sm_53 | + Maxwell support|
-|虚拟架构| |
+|Virtul Architecture| |
 | --- | --- |
 | Architecture  | Feature |
 |compute_20 |Basic features + Fermi support|
