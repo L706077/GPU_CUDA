@@ -6,7 +6,7 @@
 
 ### efficiency:
 - [1](https://stackoverflow.com/questions/10460742/how-do-cuda-blocks-warps-threads-map-onto-cuda-cores)
-- [2](http://blog.csdn.net/csgxy123/article/details/9704461)
+- [2](https://stackoverflow.com/questions/2392250/understanding-cuda-grid-dimensions-block-dimensions-and-threads-organization-s)
 
 
 ***CUDA=Compute Unified Device Architecture***
