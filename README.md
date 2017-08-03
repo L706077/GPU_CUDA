@@ -94,7 +94,7 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
 
 ### Hardware
 * **SP(Streaming Process)**: 最基本的處理單元，一個SP可執行一個thread。 <br />
-* **SM(Streaming Multiprocessor)**: 由多個SP加上一些資源而組成，每個SM所擁有之SP數量依據不同GPU架構而不同，Kepler=128,Maxwell=128,Pascal=128，任一GPU則有多個SM，軟體定義上SP是平行運算，但物理實現上並非所有SP能夠同時平行運算，有些會處於掛起、就緒等其他狀態。任一SM只能執行一個block，如GTX1080有20個SM，故只能同時執行20個blocks <br />
+* **SM(Streaming Multiprocessor)**: 由多個SP加上一些資源而組成，每個SM所擁有之SP數量依據不同GPU架構而不同，Kepler=128,Maxwell=128,Pascal=128，任一GPU則有多個SM，軟體定義上SP是平行運算，但物理實現上並非所有SP能夠同時平行運算，有些會處於掛起、就緒等其他狀態。任一SM只能執行一個block，如GTX1080有20個SM，故只能同時執行20個blocks，多餘之線程塊blocks則呈現queue狀態排隊進入SM。  <br />
 
 
 ### Software
