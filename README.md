@@ -157,4 +157,17 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
                                                   +--> 執行緒(小兵)
 ```
 
+### CUDA only read variable
+#### dim3 = uint3
+struct uint3{ <br />
+unsigned int x, y, z; <br />
+} <br />
+uint3 only be used on .cu file, dim3 can be used on .cpp/.cu file
+
+* **threadIdx:** thread index
+* **blockIdx:** block index
+* **blockDim:**  (threadsPerBlock)
+* **gridDim:**  (blocksPerGrid)
+
+
 
