@@ -1,4 +1,5 @@
 # GPU_CUDA
+***CUDA=Compute Unified Device Architecture***
 
 ## GPU Spec
 
