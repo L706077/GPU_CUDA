@@ -136,7 +136,7 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
                  函式內容 <br />
       }; <br />
    **呼叫**: <br />
-      kernel<<< blocks, threads >>>( arg1, arg2 ); <br />
+      kernel<<< blocks, threads >>>( arg1, arg2, ... ); <br />
       
    ```C++
       任務(kernel)
