@@ -26,7 +26,16 @@
 
 
 ---
-
+| |File Prefix Description|
+| ------ | ------ |
+|.cu | CUDA source file, containing host code and device functions|
+|.c | C source file|
+|.cc, .cxx, .cpp | C++ source file|
+|.gpu | GPU intermediate file|
+|.ptx | PTX intermediate assembly file|
+|.o, .obj | Object file|
+|.a, .lib | Library file|
+|.so| Shared object file|
 
 ## CUDA Architecture
 ### Equipment
