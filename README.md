@@ -43,17 +43,17 @@
 | --- | --- |
 | Architecture  | Feature |
 |sm_20| Basic features + Fermi support|
-|sm_30 and sm_32 | + Kepler support + Unified memory programming|
+|sm_30, sm_32 | + Kepler support + Unified memory programming|
 |sm_35 | + Dynamic parallelism support|
-|sm_50, sm_52, and sm_53 | + Maxwell support|
-| --- | --- |
+|sm_50, sm_52, sm_53 | + Maxwell support|
+
 |Virtul Architecture| |
 | --- | --- |
 | Architecture  | Feature |
 |compute_20 |Basic features + Fermi support|
-|compute_30 and compute_32 | + Kepler support + Unified memory programming|
+|compute_30, compute_32 | + Kepler support + Unified memory programming|
 |compute_35 | + Dynamic parallelism support|
-|compute_50, compute_52, and compute_53 | + Maxwell support|
+|compute_50, compute_52, compute_53 | + Maxwell support|
 
 
 ---
