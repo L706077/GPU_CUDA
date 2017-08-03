@@ -22,10 +22,10 @@
 |MaxThreadPerBlock|  1024	  |     	   |    	|     |
 |PerBlockSharedMem|49152kb  |     	   |    	|     |
 |PerBlockRegistMem|65536kb  |     	   |     |     |
-
-
-
 ---
+
+
+## CUDA Files
 | |File Prefix Description|
 | ------ | ------ |
 |.cu | CUDA source file, containing host code and device functions|
@@ -36,6 +36,8 @@
 |.o, .obj | Object file|
 |.a, .lib | Library file|
 |.so| Shared object file|
+---
+
 
 ## CUDA Architecture
 ### Equipment
