@@ -104,10 +104,10 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
 
 ### Software
 * **thread**: 一個CUDA的併行程序(kernel)會以多個threads來執行，為3D結構。 <br />
-* **block**: 由多個threads所組成，同一block中之threads可以同步，也可利用shared memory來共享資料，為3D結構，設計blockDim時候盡量以32(warp)之倍數來設計。 <br />
+* **block**: 由多個threads所組成，同一block中之threads可以同步，也可利用shared memory來共享資料，為3D結構，設計blockDim時候盡量以32(warp)之倍數來設計，官方建議至少為64、128、256這些數字。 <br />
 * **grid**: 由多個blocks所組成，只能為2D結構。 <br />
 * **warp**: 32個threads組成一個warp，warp是調度和運行的基本單元。warp中所有threads並行的執行相同的指令，一個warp需要佔用一個SM運行，多個warps需要輪流進入SM，故只能有一個warp正被執行。 <br />
-  * **active warp**: 指已分配給SM的warp，且該warp所需資源如暫存器也已分配，一個SM最多有128/32=4個warp。 <br />
+  * **active warp**: 指已分配給SM的warp，且該warp所需資源如暫存器也已分配，一個SM最多有128/32=4個warp(GTX1080)。 <br />
   * **resident thread**: 為一個正在SM裡同時執行之warp數，一個GPU上resident thread最多只(SM)x32個。 <br />
 
 
