@@ -31,8 +31,8 @@
 |MaxThreadDim|(1024, 1024, 64)|            |          	|          |
 |MaxGridSize |(2^32/2, 65535, 65535)| |     |     |
 |MaxThreadPerBlock|  1024	  |     	   |    	|     |
-|PerBlockSharedMem|49152kb  |     	   |    	|     |
-|PerBlockRegistMem|65536kb  |     	   |     |     |
+|PerBlockSharedMem|49152 byte  |     	   |    	|     |
+|PerBlockRegistMem|65536 byte  |     	   |     |     |
 ---
 
 
