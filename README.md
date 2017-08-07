@@ -1,4 +1,6 @@
 # GPU_CUDA
+***CUDA=Compute Unified Device Architecture***
+---
 ## reference:
 ### basic:
 - [1](http://www.jianshu.com/p/0afb1305b1ae)
@@ -13,7 +15,7 @@
 - [1](https://github.com/jamolnng/OpenCL-CUDA-Tutorials/blob/master/CUDA/Tutorial%202%20-%20CUDA%20load%20image/kernel.cu)
 - [2](https://stackoverflow.com/questions/2392250/understanding-cuda-grid-dimensions-block-dimensions-and-threads-organization-s)
 
-***CUDA=Compute Unified Device Architecture***
+
 
 ## GPU Spec
 
