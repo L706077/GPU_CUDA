@@ -118,11 +118,11 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
 
 
 ### Memory
-* **Registers**: 暫存器 <br />
-* **Shared Memory**: 共享記憶體，任一block皆有獨立之共享記憶體 <br />
-* **Host Memory**: 主機記憶體 <br />
-* **Device Memory**: 裝置記憶體，對GPU裡所有線程皆可讀取 <br />
-* **Local Memory**: 本地記憶體，任一線程皆有獨立之本地記憶體 <br />
+* **Registers**: 暫存器-(thread) <br />
+* **Shared Memory**: 共享記憶體，任一block皆有獨立之共享記憶體-(block) <br />
+* **Host Memory**: 主機記憶體-(RAM) <br />
+* **Device Memory**: 裝置記憶體，又稱global memory對GPU裡所有線程皆可讀取-(GPU) <br />
+* **Local Memory**: 本地記憶體，任一線程皆有獨立之本地記憶體-(thread) <br />
 
 | name       |   position   | read/write speed |
 | ---------  | ------------ | ------------ |
