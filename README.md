@@ -137,7 +137,7 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
 * **cudaFree()**: 釋放device記憶體 <br />
 * **cudaMemcpy()**: 記憶體複製，注意cudaMemcpy函數是同步的，將等待kernel中所有線程都完成了執行，再執行數據的拷貝<br />
 * **cudaGetErrorstring()**: 錯誤字串解釋 <br />
-* **~~cudaThreadSynchronize() 舊的~~** / **cudaDeviceSynchronize()**: s a _host_ function，同步化，在運行內核時須用到，內核中所有線程式不同步的，直到所有任務計算完畢時須同步，強制host端等待所有的線程都完成執行。 <br />
+* **~~cudaThreadSynchronize() 舊的~~** / **cudaDeviceSynchronize()**:is a _host_ function，同步化，在運行內核時須用到，內核中所有線程式不同步的，直到所有任務計算完畢時須同步，強制host端等待所有的線程都完成執行。 <br />
 
 * **__syncthreads()**:is a _device_ function，來進行區塊內的執行緒同步，避免資料時序上的問題(來自不同的threads)，常與共享記憶體使用。 <br />
 
