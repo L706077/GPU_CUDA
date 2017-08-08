@@ -139,7 +139,7 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
 * **cudaGetErrorstring()**: 錯誤字串解釋 <br />
 * **~~cudaThreadSynchronize() 舊的~~** / **cudaDeviceSynchronize()**:is a _host_ function，同步化，在運行內核時須用到，內核中所有線程式不同步的，直到所有任務計算完畢時須同步，強制host端等待所有的線程都完成執行。 <br />
 
-* **__syncthreads()**:is a _device_ function，來進行區塊內的執行緒同步，避免資料時序上的問題(來自不同的threads)，常與共享記憶體使用。 <br />
+* **__syncthreads()**:is a _device_ function，來進行區塊內的執行緒同步，避免資料時序上的問題(來自不同的threads)，常與共享記憶體使用，用來隔開共享記憶體之**寫入週期**和**讀取週期**，避免WAR(write after read)。 <br />
 
 * **cudaStreamSynchronize()**: 與cudaDeviceSynchronize()類似功能，但函式帶有一參數Stream。<br />
 
