@@ -201,7 +201,7 @@ for(int iy=0; iy < ny; iy++){
   ```
 #### device
   
-  ***2D Grid 2D Block
+  ***2D Grid 2D Block***
   ```C++
   unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x; 
   unsigned int iy = threadIdx.y + blockIdx.y * blockDim.y;
