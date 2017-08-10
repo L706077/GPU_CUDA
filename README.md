@@ -211,10 +211,26 @@ for(int iy=0; iy < ny; iy++){
   if(ix < nx && iy < ny){
       MatC[Idx]=MatA[Idx]+MatB[Idx];
   }
-  
+  ```
+  #### 2D Grid 1D Block
+  ```C++
+  unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x; 
+  unsigned int iy = threadIdx.y;
+  unsigned int Idx = nx*iy + ix;
+  if(ix < nx && iy < ny){
+      MatC[Idx]=MatA[Idx]+MatB[Idx];
+  }
+  ```
+  #### 1D Grid 1D Block
+  ```C++
+  unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x; 
+  if(ix < nx){
+      for(int iy=0; iy < ny; iy++){
+      int idx = nx*iy + ix;
+      MatC[idx]=MatA[idx]+MatB[idx];
+      }
+  }
   
   ```
-
-
 
 
