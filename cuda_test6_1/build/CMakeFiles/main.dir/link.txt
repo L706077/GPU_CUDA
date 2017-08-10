@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/main.dir/test6_2D_2D.cpp.o CMakeFiles/main.dir/main_generated_test6_cu.cu.o  -o main -rdynamic /usr/local/cuda-8.0/lib64/libcudart_static.a -lpthread -ldl -lrt libtest6_cu_obj.a /usr/local/cuda-8.0/lib64/libcudart_static.a -lpthread -ldl -lrt 
