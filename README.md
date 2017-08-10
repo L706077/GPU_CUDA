@@ -185,4 +185,34 @@ unsigned int x, y, z; <br />
 * **gridDim:**  (numBlocks)
 
 
+### CUDA Matrix sum
+
+#### host
+  ```C++
+float *ia=A;
+float *ib=B;
+float *ic=C;
+for(int iy=0; iy < ny; iy++){
+    for(int ix=0; ix < nx; ix++){
+        ic[ix]=ia[ix]+ib[ix];
+    }
+    ia+=nx; ib+=nx; ic+=nx;
+}
+  ```
+#### device
+  
+  ***2D Grid 2D Block
+  ```C++
+  unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x; 
+  unsigned int iy = threadIdx.y + blockIdx.y * blockDim.y;
+  unsigned int Idx = nx*iy + ix;
+  if(ix < nx && iy < ny){
+      MatC[Idx]=MatA[Idx]+MatB[Idx];
+  }
+  
+  
+  ```
+
+
+
 
