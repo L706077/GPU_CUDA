@@ -188,7 +188,7 @@ unsigned int x, y, z; <br />
 
 ### CUDA Matrix sum
 
-*** host ***
+***host***
   ```C++
 float *ia=A;
 float *ib=B;
@@ -201,7 +201,7 @@ for(int iy=0; iy < ny; iy++){
 }
   ```
 
-*** device ***
+***device***
   
   #### 2D Grid 2D Block
   ```C++
