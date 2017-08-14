@@ -2,6 +2,23 @@
 ***CUDA=Compute Unified Device Architecture***
 ---
 ## reference:
+### tutorial:
+- [1](https://www.ptt.cc/bbs/C_and_CPP/M.1224075534.A.C49.html)
+- [2](https://ppt.cc/dx2Z)
+- [3](https://www.ptt.cc/bbs/VideoCard/M.1223477316.A.1F8.html)
+- [4](https://www.ptt.cc/bbs/C_and_CPP/M.1224075621.A.9AA.html)
+- [5](https://www.ptt.cc/bbs/C_and_CPP/M.1224075634.A.1B1.html)
+- [6](https://www.ptt.cc/bbs/C_and_CPP/M.1224674646.A.F5F.html)
+- [7](https://ppt.cc/2s22)
+- [8](https://www.ptt.cc/bbs/C_and_CPP/M.1225912248.A.3DF.html)
+- [9](https://ppt.cc/9G_E)
+- [10](https://www.ptt.cc/bbs/C_and_CPP/M.1226502649.A.87B.html)
+- [11](https://www.ptt.cc/bbs/C_and_CPP/M.1227119415.A.BB5.html)
+- [12](http://www.cnblogs.com/1024incn/tag/CUDA/)
+- [13](https://www.ptt.cc/bbs/VideoCard/M.1228930736.A.779.html)
+- [14](https://www.ptt.cc/bbs/VideoCard/M.1231036765.A.649.html)
+- [15](https://www.ptt.cc/bbs/C_and_CPP/M.1233304368.A.013.html)
+
 ### basic:
 - [1](http://www.jianshu.com/p/0afb1305b1ae)
 - [2](http://blog.csdn.net/csgxy123/article/details/9704461)
