@@ -5,6 +5,7 @@
 ### basic:
 - [1](http://www.jianshu.com/p/0afb1305b1ae)
 - [2](http://blog.csdn.net/csgxy123/article/details/9704461)
+- [3](http://www.cnblogs.com/1024incn/tag/CUDA/)
 
 ### efficiency:
 - [1](https://stackoverflow.com/questions/10460742/how-do-cuda-blocks-warps-threads-map-onto-cuda-cores)
