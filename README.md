@@ -251,7 +251,7 @@ for(int iy=0; iy < ny; iy++){
   
   ```
 ---
-### Warp Diverage
+### Warp Diveragence
   GPGPU 的分支指令(branch, 條件判斷if else)是比較弱的, 理由是其執行上是以 warp 為單位, 當 32 個執行緒條件不同時,
   就會導致部份的執行緒停擺, 等到下一執行週期再執行, 這種變成循序執行的動作稱為發散 (divergence), 會造成這段指令執
   行需要兩倍時間而拖慢效能.這種去除條件判斷和迴圈的程式設計法我稱為「乾式(dry)」的設計法,因為缺乏流程控制(flow control),
@@ -279,8 +279,7 @@ for(int iy=0; iy < ny; iy++){
   $ nvprof --metrics branch_efficiency ./XXXX...
   ```
   
-#### nvprof計算branch/divergent_branch數量
-
+#### nvprof計算branch/divergent_branch數量:
   ```
   $ nvprof --events branch,divergent_branch ./XXXX...
   ```
