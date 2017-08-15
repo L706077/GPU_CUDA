@@ -262,7 +262,9 @@ for(int iy=0; iy < ny; iy++){
   ```C++
   $ nvprof --metrics branch_efficiency ./XXXX...
   ```
+  
 #### nvprof計算branch/divergent_branch數量
+
   ```C++
   $ nvprof --events branch,divergent_branch ./XXXX...
   ```
