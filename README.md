@@ -132,6 +132,9 @@ Adds a few more registers. Shows no real benefit over SM30 in my experience <br 
 * **grid**: 由多個blocks所組成，只能為2D結構。 <br />
 * **warp**: 32個threads組成一個warp，warp是調度和運行的基本單元。warp中所有threads並行的執行相同的指令，一個warp需要佔用一個SM運行，多個warps需要輪流進入SM，故只能有一個warp正被執行。 <br />
   * **active warp**: 指已分配給SM的warp，且該warp所需資源如暫存器也已分配，一個SM最多有128/32=4個warp(GTX1080)。 <br />
+       **Selected warp**:被調度器warp schedulers挑選中送去執行之active warp
+       **Stalled warp**:還沒準備好要去執行之active warp
+       **Eligible warp**:還未被選中但已經準備好要執行之active warp
   * **resident thread**: 為一個正在SM裡同時執行之warp數，一個GPU上resident thread最多只(SM)x32個。 <br />
 
 
