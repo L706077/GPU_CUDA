@@ -258,7 +258,8 @@ for(int iy=0; iy < ny; iy++){
   其缺點為在比較複雜的程式中容易失去彈性,而且必需付出計算資料位址的額外成本 (每個執行緒都必需計算一次).
 
 #### nvprof度量性能:
-  ```C++
+
+  ```C++
   $ nvprof --metrics branch_efficiency ./XXXX...
   ```
 
