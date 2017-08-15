@@ -266,7 +266,7 @@ for(int iy=0; iy < ny; iy++){
 #### nvprof計算branch/divergent_branch數量
 
   ```
-  $ nvprof --events branch,divergent_branch ./XXXX...
+  $ nvprof --events branch,divergent_branch ./XXXX...
   ```
 
 
