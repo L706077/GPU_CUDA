@@ -299,3 +299,8 @@ for(int iy=0; iy < ny; iy++){
 * **Memory instruction:** 為記憶體搬移之延遲計算 <br />
        latency : 400-800 cycles for arithmetic operations <br />
        Number of Required Warps =Latency(cycles) X Memory Frequency(bandwidth) <br />
+
+### Occupancy
+- [CUDA Calculator](https://devtalk.nvidia.com/default/topic/368105/cuda-occupancy-calculator-helps-pick-optimal-thread-block-size/)
+
+
