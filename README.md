@@ -287,6 +287,8 @@ for(int iy=0; iy < ny; iy++){
   ```
   $ nvprof --events branch,divergent_branch ./XXXX...
   ```
+
+
 ---
 ### Latency Hiding 延遲隱藏
 * **Arithmetic instruction:**為每個SM端之延遲計算
