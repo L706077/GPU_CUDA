@@ -288,7 +288,7 @@ for(int iy=0; iy < ny; iy++){
   $ nvprof --events branch,divergent_branch ./XXXX...
   ```
 
-
+---
 ### Latency Hiding 延遲隱藏
 
 * **Arithmetic instruction:** 為每個SM端之延遲計算 <br />
@@ -297,5 +297,5 @@ for(int iy=0; iy < ny; iy++){
        throughput定義為每個SM每個cycle的操作數目 <br />
         
 * **Memory instruction:** 為記憶體搬移之延遲計算 <br />
-       latency:400-800 cycles for arithmetic operations <br />
+       latency : 400-800 cycles for arithmetic operations <br />
        Number of Required Warps =Latency(cycles) X Memory Frequency(bandwidth) <br />
