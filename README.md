@@ -289,7 +289,6 @@ for(int iy=0; iy < ny; iy++){
   ```
 
 
----
 ### Latency Hiding 延遲隱藏
 * **Arithmetic instruction:**為每個SM端之延遲計算
     #### latency:10-20 cycles for arithmetic operations
