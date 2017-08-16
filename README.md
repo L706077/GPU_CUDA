@@ -290,9 +290,10 @@ for(int iy=0; iy < ny; iy++){
 
 ### Latency Hiding
 * **Arithmetic instruction:**
-    #### latency:10-20 cycle for arithmetic operations
-    #### Number of Required Warps =Latency X Throughput
+    #### latency:10-20 cycles for arithmetic operations
+    #### Number of Required Warps =Latency(cycles) X Throughput
          throughput定義為每個SM每個cycle的操作數目 <br />
     
 * **Memory instruction:**
-
+    #### latency:400-800 cycles for arithmetic operations
+    #### Number of Required Warps =Latency(cycles) X Memory Frequency(bandwidth)
