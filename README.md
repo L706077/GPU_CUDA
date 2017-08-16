@@ -301,6 +301,6 @@ for(int iy=0; iy < ny; iy++){
        Number of Required Warps =Latency(cycles) X Memory Frequency(bandwidth) <br />
 
 ### Occupancy
-- [CUDA Calculator](https://devtalk.nvidia.com/default/topic/368105/cuda-occupancy-calculator-helps-pick-optimal-thread-block-size/)
-
+- [CUDA Calculator1](https://devtalk.nvidia.com/default/topic/368105/cuda-occupancy-calculator-helps-pick-optimal-thread-block-size/)
+- [CUDA Calculator2](http://lxkarthi.github.io/cuda-calculator/)
 
