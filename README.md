@@ -23,6 +23,7 @@
 - [1](http://www.jianshu.com/p/0afb1305b1ae)
 - [2](http://blog.csdn.net/csgxy123/article/details/9704461)
 - [3](http://www.cnblogs.com/1024incn/tag/CUDA/)
+- [4](https://www.slideshare.net/aj0612/mosutgpucoding-cuda)
 
 ### efficiency:
 - [1](https://stackoverflow.com/questions/10460742/how-do-cuda-blocks-warps-threads-map-onto-cuda-cores)
@@ -287,4 +288,11 @@ for(int iy=0; iy < ny; iy++){
   $ nvprof --events branch,divergent_branch ./XXXX...
   ```
 
+### Latency Hiding
+* **Arithmetic instruction:**
+    #### latency:10-20 cycle for arithmetic operations
+    #### Number of Required Warps =Latency X Throughput
+         throughput定義為每個SM每個cycle的操作數目 <br />
+    
+* **Memory instruction:**
 
