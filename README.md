@@ -304,3 +304,11 @@ for(int iy=0; iy < ny; iy++){
 - [CUDA Calculator1](https://devtalk.nvidia.com/default/topic/368105/cuda-occupancy-calculator-helps-pick-optimal-thread-block-size/)
 - [CUDA Calculator2](http://lxkarthi.github.io/cuda-calculator/)
 
+    **Occupancy=active warps/maxmum warps** <br />
+    maxmum warps可用maxThreadsPerMultiProcessor取得 <br />
+    * grid和block的配置準則：
+    
+    
+    
+    
+    
