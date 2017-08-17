@@ -305,8 +305,8 @@ for(int iy=0; iy < ny; iy++){
 - [CUDA Calculator2](http://lxkarthi.github.io/cuda-calculator/)
 
     **Occupancy=active warps / maxmum warps** <br />
-    <br />
     maxmum warps可用maxThreadsPerMultiProcessor取得 <br />
+        <br />
     **grid和block的配置準則**：
     * 保證block中thrad數目是32的倍數。 <br />
     * 避免block太小：每個blcok最少128或256個thread。 <br />
