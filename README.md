@@ -306,7 +306,7 @@ for(int iy=0; iy < ny; iy++){
 
     **Occupancy=active warps/maxmum warps** <br />
     maxmum warps可用maxThreadsPerMultiProcessor取得 <br />
-    - grid和block的配置準則：
+    - **grid和block的配置準則**：
     * 保證block中thrad數目是32的倍數。
     * 避免block太小：每個blcok最少128或256個thread。
     * 根據kernel需要的資源調整block。
