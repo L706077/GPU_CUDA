@@ -317,7 +317,7 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
     
 ### Exposing Parallelism
 
-#### nvprof計算branch/divergent_branch數量:
+#### nvprof計算每個SM在每個cycle能夠達到的最大active warp數目佔總warp的比例:
   ```
   $ nvprof --metrics achieved_occupancy ./XXXX...
   ```
