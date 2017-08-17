@@ -306,13 +306,13 @@ for(int iy=0; iy < ny; iy++){
 
     **Occupancy=active warps/maxmum warps** <br />
     maxmum warps可用maxThreadsPerMultiProcessor取得 <br />
-    - **grid和block的配置準則**：
+    **grid和block的配置準則**：
     * 保證block中thrad數目是32的倍數。
     * 避免block太小：每個blcok最少128或256個thread。
     * 根據kernel需要的資源調整block。
     * 保證block的數目遠大於SM的數目。
     * 多做實驗來挖掘出最好的配置。
-    
+Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管怎樣，Occupancy不是唯一的性能指標，Occupancy達到當某個值是，再做優化就可能不在有效果了，還有許多其它的指標需要調節，我們會在之後的博文繼續探討。
     
     
     
