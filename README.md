@@ -315,5 +315,11 @@ for(int iy=0; iy < ny; iy++){
     * 多做實驗來挖掘出最好的配置。 <br />
 Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管怎樣，Occupancy不是唯一的性能指標，Occupancy達到當某個值是，再做優化就可能不在有效果了，還有許多其它的指標需要調節，我們會在之後的博文繼續探討。 <br />
     
-    
-    
+### Exposing Parallelism
+
+#### nvprof計算branch/divergent_branch數量:
+  ```
+  $ nvprof --metrics achieved_occupancy ./XXXX...
+  ```
+
+
