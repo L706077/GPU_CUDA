@@ -321,5 +321,17 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
   ```
   $ nvprof --metrics achieved_occupancy ./XXXX...
   ```
+#### nvprof計算每個SM在每個cycle能夠達到的最大active warp數目佔總warp的比例:
+  ```
+  $ nvprof --metrics gld_throughput ./XXXX...
+```
+
+
+#### 使用nvprof的gld_efficiency來度量load efficiency:
+  ```
+  $ nvprof --metrics gld_efficiency ./XXXX...
+  ```
+該metric參數是指我們確切需要的global load throughput與實際得到global load memory的比值。這個metric參數可以讓我們知道，APP的load操作利用device memory bandwidth的程度
+
 
 
