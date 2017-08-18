@@ -314,7 +314,9 @@ for(int iy=0; iy < ny; iy++){
     * 保證block的數目遠大於SM的數目。 <br />
     * 多做實驗來挖掘出最好的配置。 <br />
 Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管怎樣，Occupancy不是唯一的性能指標，Occupancy達到當某個值是，再做優化就可能不在有效果了，還有許多其它的指標需要調節，我們會在之後的博文繼續探討。 <br />
-    
+
+---
+
 ### Exposing Parallelism
 
 #### nvprof計算每個SM在每個cycle能夠達到的最大active warp數目佔總warp的比例  (單位 無 ):
@@ -345,6 +347,6 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 - 在眾多相關的metric和event中尋求一個平衡。
 - Grid/blcok heuristics（啟發） 為調節性能提供了不錯的切入點。
 
-
+---
 
 
