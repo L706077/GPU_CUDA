@@ -321,13 +321,13 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
   ```
   $ nvprof --metrics achieved_occupancy ./XXXX...
   ```
-#### nvprof計算每個SM在每個cycle能夠達到的最大active warp數目佔總warp的比例:
+<br />
+#### nvprof計算memory的throughput (單位 GB/s ):
   ```
   $ nvprof --metrics gld_throughput ./XXXX...
 ```
-
-
-#### 使用nvprof的gld_efficiency來度量load efficiency:
+<br />
+#### 使用nvprof的gld_efficiency來度量load efficiency (單位 % ):
   ```
   $ nvprof --metrics gld_efficiency ./XXXX...
   ```
