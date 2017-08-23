@@ -2,6 +2,8 @@
 ***CUDA=Compute Unified Device Architecture***
 ---
 ## reference:
+### Professional CUDA C Programming
+- [1](http://www.hds.bme.hu/~fhegedus/C++/Professional%20CUDA%20C%20Programming.pdf)
 ### tutorial:
 - [1](https://www.ptt.cc/bbs/C_and_CPP/M.1224075534.A.C49.html)
 - [2](https://ppt.cc/dx2Z)
