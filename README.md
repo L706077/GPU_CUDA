@@ -467,8 +467,8 @@ for (int i = 0; i < 100; i += 2) {
     unsigned int tid = threadIdx.x;
     unsigned int idx = blockIdx.x * blockDim.x * 2 + threadIdx.x;
 ```
-|-block1-| |-block2-| |-block3-| |-block4-| |-block5-| |-block6-| <br />
-  ↑_block size_↑         ↑_block size_↑        ↑_block size_↑
+**|-block1-| |-block2-| |-block3-| |-block4-| |-block5-| |-block6-|** <br />
+     ↑_block size_↑        
 
 
 每個thread從相鄰的data block中取數據，這一步實際上就是將兩個data block規約成一個。 <br />
