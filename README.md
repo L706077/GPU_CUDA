@@ -412,7 +412,6 @@ __global__ void reduceNeighboredLess (int *g_idata, int *g_odata, unsigned int n
 }  
 
 ```
-<br />
 
 我們也可以使用nvprof的inst_per_warp參數來查看每个warp上執行的指令數目的平均值。<br/>
 ```
@@ -421,7 +420,7 @@ $ nvprof --metrics inst_per_warp ./xxx
 <br />
 
 
-**Interleaved pair：按一定跨度配对两个元素。**<br />
+**Interleaved pair：按一定跨度配對各個元素。**<br />
 ```
 __global__ void reduceInterleaved (int *g_idata, int *g_odata, unsigned int n) {
 // set thread ID
