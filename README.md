@@ -348,8 +348,9 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 - 在眾多相關的metric和event中尋求一個平衡。
 - Grid/blcok heuristics（啟發） 為調節性能提供了不錯的切入點。
 
----
 <br />
+
+---
 
 ### Parallel Reduction
 - 將輸入數組切割成很多小的塊。
