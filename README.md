@@ -354,17 +354,16 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 <br />
 
 ### Parallel Reduction
- 
+
+**Original function**
  ```
   int sum = 0;
   for (int i = 0; i < N; i++)
     sum += array[i];
   ```
-
 <br />
 
-**Neighbored pair：每次迭代都是相邻两个元素求和。**
-
+**Neighbored pair：每次迭代都是相鄰兩個元素求和。**
 
 ```
 __global__ void reduceNeighbored(int *g_idata, int *g_odata, unsigned int n) {
@@ -415,8 +414,32 @@ __global__ void reduceNeighboredLess (int *g_idata, int *g_odata, unsigned int n
 ```
 <br />
 
-我们也可以使用nvprof的inst_per_warp参数来查看每个warp上执行的指令数目的平均值。<br/>
+我們也可以使用nvprof的inst_per_warp參數來查看每个warp上執行的指令數目的平均值。<br/>
 ```
 $ nvprof --metrics inst_per_warp ./xxx
+```
+<br />
+
+
+**Interleaved pair：按一定跨度配对两个元素。**<br />
+```
+__global__ void reduceInterleaved (int *g_idata, int *g_odata, unsigned int n) {
+// set thread ID
+unsigned int tid = threadIdx.x;
+unsigned int idx = blockIdx.x * blockDim.x + threadIdx.x;
+// convert global data pointer to the local pointer of this block
+int *idata = g_idata + blockIdx.x * blockDim.x;
+// boundary check
+if(idx >= n) return;
+// in-place reduction in global memory
+for (int stride = blockDim.x / 2; stride > 0; stride >>= 1) {
+if (tid < stride) {
+idata[tid] += idata[tid + stride];
+}
+__syncthreads();
+}
+// write result for this block to global mem
+if (tid == 0) g_odata[blockIdx.x] = idata[0];
+}
 ```
 
