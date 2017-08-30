@@ -443,4 +443,18 @@ __syncthreads();
 if (tid == 0) g_odata[blockIdx.x] = idata[0];
 }
 ```
+<br />
+### UNrolling Loops
+```
+for (int i = 0; i < 100; i++) {
+    a[i] = b[i] + c[i];
+}
+```
+
+```
+for (int i = 0; i < 100; i += 2) {
+    a[i] = b[i] + c[i];
+    a[i+1] = b[i+1] + c[i+1];
+} 
+```
 
