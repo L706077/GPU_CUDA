@@ -265,7 +265,7 @@ for(int iy=0; iy < ny; iy++){
 **發生點**:同個warp內之thread跑在不同程序裡(如if/else判斷式)<br />
 **解決法**:將會分支程序內之計算粒度調整為warp大小倍數<br />
 
-  ```
+  ```C++
  __global__ void mathKernel2( void ) {
      int tid = blockIdx.x * blockDim.x + threadIdx.x;
      float a, b;
@@ -281,12 +281,12 @@ for(int iy=0; iy < ny; iy++){
 
 #### nvprof度量性能:
 
-  ```
+  ```C++
   $ nvprof --metrics branch_efficiency ./XXXX...
   ```
   
 #### nvprof計算branch/divergent_branch數量:
-  ```
+  ```C++
   $ nvprof --events branch,divergent_branch ./XXXX...
   ```
 
@@ -322,19 +322,19 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 ### Exposing Parallelism
 
 #### nvprof計算每個SM在每個cycle能夠達到的最大active warp數目佔總warp的比例  (單位 無 ):
-  ```
+  ```C++
   $ nvprof --metrics achieved_occupancy ./XXXX...
   ```
 <br />
 
 #### nvprof計算memory的throughput (單位 GB/s ):
-  ```
+  ```C++
   $ nvprof --metrics gld_throughput ./XXXX...
   ```
 <br />
 
 #### 使用nvprof的gld_efficiency來度量load efficiency (單位 % ):
-  ```
+  ```C++
   $ nvprof --metrics gld_efficiency ./XXXX...
   ```
 該metric參數是指我們確切需要的global load throughput與實際得到global load memory的比值。這個metric參數可以讓我們知道，APP的load操作利用device memory bandwidth的程度
@@ -359,7 +359,7 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 
 
 **Original function**
- ```
+ ```C++
   int sum = 0;
   for (int i = 0; i < N; i++)
     sum += array[i];
@@ -368,7 +368,7 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 
 **Neighbored pair：每次迭代都是相鄰兩個元素求和。**
 
-```
+```C++
 __global__ void reduceNeighbored(int *g_idata, int *g_odata, unsigned int n) {
     // set thread ID
     unsigned int tid = threadIdx.x;
@@ -394,7 +394,7 @@ __global__ void reduceNeighbored(int *g_idata, int *g_odata, unsigned int n) {
 <br />
 
 
-```
+```C++
 __global__ void reduceNeighboredLess (int *g_idata, int *g_odata, unsigned int n) {
     // set thread ID
     unsigned int tid = threadIdx.x;
@@ -423,14 +423,14 @@ __global__ void reduceNeighboredLess (int *g_idata, int *g_odata, unsigned int n
 ```
 
 我們也可以使用nvprof的inst_per_warp參數來查看每个warp上執行的指令數目的平均值。<br/>
-```
+```C++
 $ nvprof --metrics inst_per_warp ./xxx
 ```
 <br />
 
 
 **Interleaved pair：按一定跨度配對各個元素。**<br />
-```
+```C++
 __global__ void reduceInterleaved (int *g_idata, int *g_odata, unsigned int n) {
 // set thread ID
 unsigned int tid = threadIdx.x;
@@ -457,13 +457,13 @@ if (tid == 0) g_odata[blockIdx.x] = idata[0];
 <br />
 
 ### UNrolling Loops
-```
+```C++
 for (int i = 0; i < 100; i++) {
     a[i] = b[i] + c[i];
 }
 ```
 
-```
+```C++
 for (int i = 0; i < 100; i += 2) {
     a[i] = b[i] + c[i];
     a[i+1] = b[i+1] + c[i+1];
@@ -473,7 +473,7 @@ for (int i = 0; i < 100; i += 2) {
 <br />
 
 每個block處理一部分數據，我們給這數據起名data block 下面的代碼是reduceInterleaved的修正版本，每個block，都是以兩個data block作為源數據進行操作每個thread作用於多個data block，並且從每個data block中取出一個元素處理。 <br />
-```
+```C++
     unsigned int tid = threadIdx.x;
     unsigned int idx = blockIdx.x * blockDim.x * 2 + threadIdx.x;
 ```
@@ -483,7 +483,7 @@ for (int i = 0; i < 100; i += 2) {
 
 每個thread從相鄰的data block中取數據，這一步實際上就是將兩個data block規約成一個。 <br />
 
-```
+```C++
 __global__ void reduceUnrolling2 (int *g_idata, int *g_odata, unsigned int n) {
     // set thread ID
     unsigned int tid = threadIdx.x;
