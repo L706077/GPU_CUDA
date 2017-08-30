@@ -413,5 +413,10 @@ __global__ void reduceNeighboredLess (int *g_idata, int *g_odata, unsigned int n
 }  
 
 ```
+<br />
 
+我们也可以使用nvprof的inst_per_warp参数来查看每个warp上执行的指令数目的平均值。<br/>
+```
+$ nvprof --metrics inst_per_warp ./xxx
+```
 
