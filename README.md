@@ -462,7 +462,8 @@ for (int i = 0; i < 100; i += 2) {
 
 <br />
 
-每個block處理一部分數據，我們給這數據起名data block 下面的代碼是reduceInterleaved的修正版本，每個block，都是以兩個data block作為源數據進行操作每個thread作用於多個data block，並且從每個data block中取出一個元素處理。
+每個block處理一部分數據，我們給這數據起名data block 下面的代碼是reduceInterleaved的修正版本，每個block，都是以兩個data block作為源數據進行操作每個thread作用於多個data block，並且從每個data block中取出一個元素處理。 <br />
+每個thread從相鄰的data block中取數據，這一步實際上就是將兩個data block規約成一個。 <br />
 
 ```
 __global__ void reduceUnrolling2 (int *g_idata, int *g_odata, unsigned int n) {
