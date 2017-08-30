@@ -352,6 +352,7 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 ---
 <br />
 <br />
+
 ### Parallel Reduction
  
  ```
