@@ -354,6 +354,10 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 <br />
 
 ### Parallel Reduction
+- 將輸入數組切割成很多小的塊。
+- 用thread來計算每個塊的和。
+- 對這些塊的结果再求和得最终结果。
+
 
 **Original function**
  ```
