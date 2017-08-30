@@ -330,7 +330,7 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 #### nvprof計算memory的throughput (單位 GB/s ):
   ```
   $ nvprof --metrics gld_throughput ./XXXX...
-```
+  ```
 <br />
 
 #### 使用nvprof的gld_efficiency來度量load efficiency (單位 % ):
@@ -350,5 +350,16 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 - Grid/blcok heuristics（啟發） 為調節性能提供了不錯的切入點。
 
 ---
+<br />
+<br />
+### Parallel Reduction
+   ```
+ int sum = 0;
+for (int i = 0; i < N; i++)
+    sum += array[i];
+  ```
+<br />
+
+
 
 
