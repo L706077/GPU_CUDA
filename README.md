@@ -460,3 +460,35 @@ for (int i = 0; i < 100; i += 2) {
 } 
 ```
 
+<br />
+
+每個block處理一部分數據，我們給這數據起名data block 下面的代碼是reduceInterleaved的修正版本，每個block，都是以兩個data block作為源數據進行操作每個thread作用於多個data block，並且從每個data block中取出一個元素處理。
+
+```
+__global__ void reduceUnrolling2 (int *g_idata, int *g_odata, unsigned int n) {
+    // set thread ID
+    unsigned int tid = threadIdx.x;
+    unsigned int idx = blockIdx.x * blockDim.x * 2 + threadIdx.x;
+
+    // convert global data pointer to the local pointer of this block
+    int *idata = g_idata + blockIdx.x * blockDim.x * 2;
+
+    // unrolling 2 data blocks
+    if (idx + blockDim.x < n) g_idata[idx] += g_idata[idx + blockDim.x];
+    __syncthreads();
+
+    // in-place reduction in global memory
+    for (int stride = blockDim.x / 2; stride > 0; stride >>= 1) {
+        if (tid < stride) {
+            idata[tid] += idata[tid + stride];
+        }
+        // synchronize within threadblock
+        __syncthreads();
+    }
+
+    // write result for this block to global mem
+    if (tid == 0) g_odata[blockIdx.x] = idata[0];
+}   
+```
+
+
