@@ -340,7 +340,6 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 該metric參數是指我們確切需要的global load throughput與實際得到global load memory的比值。這個metric參數可以讓我們知道，APP的load操作利用device memory bandwidth的程度
 
 <br />
-
 #### Conclusion:
 現在可以看出，最佳配置既不是擁有最高achieved Occupancy也不是最高load throughput的。所以不存在唯一metric來優化計算性能，我麼需要從眾多metric中尋求一個平衡。 <br />
 
@@ -350,7 +349,6 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 - Grid/blcok heuristics（啟發） 為調節性能提供了不錯的切入點。
 
 ---
-<br />
 <br />
 
 ### Parallel Reduction
