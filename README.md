@@ -644,7 +644,14 @@ cudaEventDestroy(start);
 cudaEventDestroy(stop);
 ```
 
+### Stream Synchronization
+以stream來說分成異步和同步兩種，異步Stream又分為阻塞和非阻塞兩種
+➤ Asynchronous streams (non-NULL streams)
+➤ Synchronous streams (the NULL/default stream) --------->  Blocking streams / Non-blocking streams <br />
 
 
+
+Implicit Synchronization
+Explicit Synchronization
 
 
