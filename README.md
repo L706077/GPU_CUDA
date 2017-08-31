@@ -645,11 +645,18 @@ cudaEventDestroy(stop);
 ```
 
 ### Stream Synchronization
-以stream來說分成異步和同步兩種，異步Stream又分為阻塞和非阻塞兩種: <br/>
+以stream來說分成異步和同步兩種，同步異步是針對host來講的，異步Stream又分為阻塞和非阻塞兩種，阻塞非阻塞是異步stream針對同步stream來講的: <br/>
 ➤ Synchronous streams (the NULL/default stream) <br/>
 ➤ Asynchronous streams (non-NULL streams/non-default stream ) ----------->  Blocking streams / Non-blocking streams <br />
 
-
+除了通過cudaStreamCreate生成的阻塞stream外，我們還可以通過下面的API配置生成非阻塞Non-blocking stream：
+```C++
+cudaError_t cudaStreamCreateWithFlags(cudaStream_t* pStream, unsigned int flags);
+ 
+ // flag為以下兩種，默認為第一種，非阻塞便是第二種。
+  cudaStreamDefault : default stream creation flag (blocking)
+  cudaStreamNonBlocking : asynchronous stream creation flag (non -blocking)
+```
 
 Implicit Synchronization
 Explicit Synchronization
