@@ -682,6 +682,7 @@ cudaError_t cudaStreamWaitEvent(cudaStream_t stream, cudaEvent_t event );
 ```
 該函數會指定該stream等待特定的event，該event可以關聯到相同或者不同的stream，對於不同stream的情況。<br/>
 Stream2會等待stream1中的event完成後繼續執行。<br/>
+<br />
 
 **Event的配置可用下面函數：**
 ```C++
