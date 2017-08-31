@@ -522,14 +522,35 @@ __global__ void reduceUnrolling2 (int *g_idata, int *g_odata, unsigned int n) {
 
 Cuda stream是指一堆異步的cuda操作，他們按照host代碼調用的順序執行在device上，在許多情況下，花費在執行kernel上的時間要比傳輸數據多得多，所以很容易想到將cpu和gpu之間的溝通時間隱藏在其他kernel執行過程中，我們可以將數據傳輸和kernel執行放在不同的stream中來實現此功能。Stream可以用來實現pipeline和雙buffer（front-back）渲染，從軟件角度來看，不同stream中的不同操作可以並行執行，但是硬件角度卻不一定如此。這依賴於PCIe鏈接或者每個SM可獲得的資源，不同的stream仍然需要等待別的stream來完成執行。<br />
 
+```C++
+cudaError_t cudaMemcpyAsync( void * dst, const  void * src, size_t count,cudaMemcpyKind kind, cudaStream_t stream = 0 );
+```
 
+```C++
+cudaError_t cudaStreamCreate(cudaStream_t* pStream);
+```
 
+```C++
+cudaError_t cudaMallocHost( void ** ptr, size_t size);
+cudaError_t cudaHostAlloc( void **pHost, size_t size, unsigned int flags);
+```
 
+```C++
+kernel_name<<<grid, block, sharedMemSize, stream >>>(argument list);
+```
 
+```C++
+cudaStream_t stream;
+cudaStreamCreate(& stream);
+cudaError_t cudaStreamDestroy(cudaStream_t stream);
+```
 
+```C++
+cudaError_t cudaStreamSynchronize(cudaStream_t stream);
+cudaError_t cudaStreamQuery(cudaStream_t stream);
+```
 
-
-
-
-
+```C++
+cudaError_t cudaStreamCreateWithPriority(cudaStream_t* pStream, unsigned int flags, int priority);
+```
 
