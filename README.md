@@ -658,7 +658,33 @@ cudaError_t cudaStreamCreateWithFlags(cudaStream_t* pStream, unsigned int flags)
   cudaStreamNonBlocking : asynchronous stream creation flag (non -blocking)
 ```
 
-Implicit Synchronization
-Explicit Synchronization
+### Implicit Synchronization 隱式同步
+隱式同步我們也了解過，比如cudaMemcpy就會隱式的同步device和host，因為該函數同步作用只是數據傳輸的副作用，所以稱為隱式。了解這些隱式同步是很中要的，因為不經意的調用這樣一個函數可能會導致性能急劇降低。
+
+### Explicit Synchronization 顯式同步
+顯式同步API有：<br />
+- cudaDeviceSynchronize
+- cudaStreamSynchronize
+- cudaEventSynchronize
+
+
+從grid level來看顯式同步方式，有如下幾種：<br />
+- Synchronizing the device
+- Synchronizing a stream
+- Synchronizing an event in a stream
+- Synchronizing across streams using an event
+
+我們可以使用之前提到過的cudaDeviceSynchronize來同步該device上的所有操作。該函數會導致host等待所有device上的運算或者數據傳輸操作完成。顯而易見，該函數是個heavyweight的函數，我們應該盡量減少這類函數的使用。<br/>
+通過使用**cudaStreamSynchronize**可以使host等待特定stream中的操作全部完成或者使用非阻塞版本的**cudaStreamQuery**來測試是否完成。<br/>
+Cuda event可以用來實現更細粒度的阻塞和同步，相關函數為**cudaEventSynchronize**和**cudaEventSynchronize**，用法類似stream相關的函數。此外，**cudaStreamWaitEvent**提供了一種靈活的方式來引入stream之間的依賴關係：
+```C++
+cudaError_t cudaStreamWaitEvent(cudaStream_t stream, cudaEvent_t event );
+```
+
+
+
+
+
+
 
 
