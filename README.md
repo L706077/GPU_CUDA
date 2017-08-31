@@ -26,6 +26,7 @@
 - [2](http://blog.csdn.net/csgxy123/article/details/9704461)
 - [3](http://www.cnblogs.com/1024incn/tag/CUDA/)
 - [4](https://www.slideshare.net/aj0612/mosutgpucoding-cuda)
+- [5](https://chenrudan.github.io/blog/2015/07/22/cudastream.html)
 
 ### efficiency:
 - [1](https://stackoverflow.com/questions/10460742/how-do-cuda-blocks-warps-threads-map-onto-cuda-cores)
