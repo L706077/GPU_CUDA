@@ -483,6 +483,7 @@ for (int i = 0; i < 100; i += 2) {
 
 每個thread從相鄰的data block中取數據，這一步實際上就是將兩個data block規約成一個。 <br />
 
+以Interleaved pair範例改編如下: <br />
 ```C++
 __global__ void reduceUnrolling2 (int *g_idata, int *g_odata, unsigned int n) {
     // set thread ID
