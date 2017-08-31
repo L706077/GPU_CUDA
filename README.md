@@ -567,4 +567,84 @@ cudaError_t cudaStreamQuery(cudaStream_t stream);
 ```C++
 cudaError_t cudaStreamCreateWithPriority(cudaStream_t* pStream, unsigned int flags, int priority);
 ```
+<br />
+
+以下代碼使用了三個stream，數據傳輸和kernel運算都被分配在了這幾個並發的stream中。
+```C++
+for ( int i = 0 ; i < nStreams; i++ ) {
+     int offset = i * bytesPerStream;
+    cudaMemcpyAsync( &d_a[offset], &a [offset], bytePerStream, streams[i]);
+    kernel <<grid, block, 0 , streams[i]>>(& d_a[offset]);
+    cudaMemcpyAsync( &a[offset], & d_a[offset], bytesPerStream, streams[i]);
+}
+
+for ( int i = 0 ; i < nStreams; i++ ) {
+    cudaStreamSynchronize(streams[i]);
+}
+```
+
+### Cuda Events
+
+Event是stream相關的一個重要概念，其用來標記strean執行過程的某個特定的點。其主要用途是：
+- 同步stream執行
+- 操控device運行步調
+只有當該event標記的stream位置的所有操作都被執行完畢，該event才算完成。<br />
+
+```C++
+//  宣告 
+cudaEvent_t event ;
+ // 創建 
+cudaError_t cudaEventCreate(cudaEvent_t* event );
+ // 銷毀 
+cudaError_t cudaEventDestroy(cudaEvent_t event );
+```
+<br/>
+
+
+```C++
+下面函數將event關聯到指定stream:
+cudaError_t cudaEventRecord(cudaEvent_t event , cudaStream_t stream = 0 );
+
+等待event會阻塞調用host線程，同步操作調用下面的函數：
+cudaError_t cudaEventSynchronize(cudaEvent_t event );
+
+我們同時可以使用下面的API來測試event是否完成，該函數不會阻塞host：
+cudaError_t cudaEventQuery(cudaEvent_t event );
+
+還有專門的API可以度量兩個event之間的時間間隔：
+cudaError_t cudaEventElapsedTime( float * ms, cudaEvent_t start, cudaEvent_t stop);
+```
+<br/>
+
+下面代碼簡單展示瞭如何使用event來度量時間：
+```C++
+// create two events 
+cudaEvent_t start, stop;
+cudaEventCreate( & start);
+cudaEventCreate( & stop);
+
+ // record start event on the default stream 
+cudaEventRecord(start);
+
+// execute kernel 
+kernel<<<grid, block>>> (arguments);
+
+// record stop event on the default stream 
+cudaEventRecord(stop );
+
+// wait until the stop event completes 
+cudaEventSynchronize(stop);
+
+// calculate the elapsed time between two events 
+float time;
+cudaEventElapsedTime( & time, start, stop);
+
+// clean up the two events 
+cudaEventDestroy(start);
+cudaEventDestroy(stop);
+```
+
+
+
+
 
