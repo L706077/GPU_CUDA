@@ -522,42 +522,42 @@ __global__ void reduceUnrolling2 (int *g_idata, int *g_odata, unsigned int n) {
 
 Cuda stream是指一堆異步的cuda操作，他們按照host代碼調用的順序執行在device上，在許多情況下，花費在執行kernel上的時間要比傳輸數據多得多，所以很容易想到將cpu和gpu之間的溝通時間隱藏在其他kernel執行過程中，我們可以將數據傳輸和kernel執行放在不同的stream中來實現此功能。Stream可以用來實現pipeline和雙buffer（front-back）渲染，從軟件角度來看，不同stream中的不同操作可以並行執行，但是硬件角度卻不一定如此。這依賴於PCIe鏈接或者每個SM可獲得的資源，不同的stream仍然需要等待別的stream來完成執行。<br />
 
-一般cudaMemcpy為host和device端同步傳遞資料，其異步版本的cudaMemcpy如下：
+**一般cudaMemcpy為host和device端同步傳遞資料，其異步版本的cudaMemcpy如下：**
 ```C++
 cudaError_t cudaMemcpyAsync( void * dst, const  void * src, size_t count,cudaMemcpyKind kind, cudaStream_t stream = 0 );
 ```
-
-如果要聲明一個新的stream則使用下面的API定義一個：
+<br />
+**如果要聲明一個新的stream則使用下面的API定義一個：**
 ```C++
 cudaError_t cudaStreamCreate(cudaStream_t* pStream);
 ```
-當執行一次異步數據傳輸時，我們必須使用pinned（或者non-pageable）memory。Pinned memory的分配如下:
-
+**當執行一次異步數據傳輸時，我們必須使用pinned（或者non-pageable）memory。Pinned memory的分配如下:**
+<br />
 ```C++
 cudaError_t cudaMallocHost( void ** ptr, size_t size);
 cudaError_t cudaHostAlloc( void **pHost, size_t size, unsigned int flags);
 ```
-
-在執行kernel時要想設置stream的話，也是很簡單的，同樣只要加一個stream參數就好：
+<br />
+**在執行kernel時要想設置stream的話，也是很簡單的，同樣只要加一個stream參數就好：**
 ```C++
 kernel_name<<<grid, block, sharedMemSize, stream >>>(argument list);
 ```
-
-宣告創建與銷毀stream:
+<br />
+**宣告創建與銷毀stream:**
 ```C++
 cudaStream_t stream;
 cudaStreamCreate(& stream);
 cudaError_t cudaStreamDestroy(cudaStream_t stream);
 ```
-
-由於所有stram的執行都是異步的，就需要一些API在必要的時候做同步操作：
+<br />
+**由於所有stram的執行都是異步的，就需要一些API在必要的時候做同步操作：**
 ```C++
 cudaError_t cudaStreamSynchronize(cudaStream_t stream);
 cudaError_t cudaStreamQuery(cudaStream_t stream);
 ```
-第一個會強制host阻塞等待，直至stream中所有操作完成為止；第二個會檢查stream中的操作是否全部完成，即使有操作沒完成也不會阻塞host。 <br/>
-
-stream可以有優先級的屬性：
+**第一個會強制host阻塞等待，直至stream中所有操作完成為止；第二個會檢查stream中的操作是否全部完成，即使有操作沒完成也不會阻塞host。** <br/>
+<br />
+**stream可以有優先級的屬性：**
 ```C++
 cudaError_t cudaStreamCreateWithPriority(cudaStream_t* pStream, unsigned int flags, int priority);
 ```
