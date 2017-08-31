@@ -517,10 +517,12 @@ __global__ void reduceUnrolling2 (int *g_idata, int *g_odata, unsigned int n) {
 
 ### Streams and Events
 
-- Kernel level : 一個kernel或者一個task由許多thread並行的執行在GPU上。<br />
-- Grid level : Grid level是指多個kernel在一個device上同時執行(stream概念)。 <br />
+- **Kernel level** : 一個kernel或者一個task由許多thread並行的執行在GPU上。<br />
+- **Grid level** : Grid level是指多個kernel在一個device上同時執行(stream概念)。 <br />
 
-Cuda stream是指一堆異步的cuda操作，他們按照host代碼調用的順序執行在device上，在許多情況下，花費在執行kernel上的時間要比傳輸數據多得多，所以很容易想到將cpu和gpu之間的溝通時間隱藏在其他kernel執行過程中，我們可以將數據傳輸和kernel執行放在不同的stream中來實現此功能。Stream可以用來實現pipeline和雙buffer（front-back）渲染，從軟件角度來看，不同stream中的不同操作可以並行執行，但是硬件角度卻不一定如此。這依賴於PCIe鏈接或者每個SM可獲得的資源，不同的stream仍然需要等待別的stream來完成執行。
+Cuda stream是指一堆異步的cuda操作，他們按照host代碼調用的順序執行在device上，在許多情況下，花費在執行kernel上的時間要比傳輸數據多得多，所以很容易想到將cpu和gpu之間的溝通時間隱藏在其他kernel執行過程中，我們可以將數據傳輸和kernel執行放在不同的stream中來實現此功能。Stream可以用來實現pipeline和雙buffer（front-back）渲染，從軟件角度來看，不同stream中的不同操作可以並行執行，但是硬件角度卻不一定如此。這依賴於PCIe鏈接或者每個SM可獲得的資源，不同的stream仍然需要等待別的stream來完成執行。<br />
+
+
 
 
 
