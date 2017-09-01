@@ -705,13 +705,13 @@ cudaEventInterprocess
 - **Global memory** : global Memory是空間最大，latency最高，GPU最基礎的memory
 
 ### CUDA Variable Declaration Summary
-|  QUALIFIER   |  VARIABLE NAME |   MEMORY      |    SCOPE    |   LIFESPAN   |
-| ---------    |  ------------  |  ------------ |  ---------- |  ----------  |
-|              |    float var   |   Register    |   Thread    |    Thread    |
-|              | float/var[100] |     Local     |   Thread    |    Thread    |
-| __shared__   |  float var †   |     Shared    |    Block    |    Block     |
-| __device__   |  float var †   |     Global    |    Global   | Application  |
-| __constant__ |  float var †   |     Constant  |    Global   | Application  |
+|  QUALIFIER    |  VARIABLE NAME |   MEMORY      |    SCOPE    |   LIFESPAN   |
+| ---------     |  ------------  |  ------------ |  ---------- |  ----------  |
+|               |  float var     |   Register    |   Thread    | Thread       |
+|               |  float/var[100 |   Local       |   Thread    | Thread       |
+| __ shared __  |  float var †   |   Shared      |   Block     | Block        |
+| __ device __  |  float var †   |   Global      |   Global    | Application  |
+| __ constant __|  float var †   |   Constant    |   Global    | Application  |
 
 
 
