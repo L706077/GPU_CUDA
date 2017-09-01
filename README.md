@@ -708,7 +708,7 @@ cudaEventInterprocess
 |  QUALIFIER    |  VARIABLE NAME |   MEMORY      |    SCOPE    |   LIFESPAN   |
 | ---------     |  ------------  |  ------------ |  ---------- |  ----------  |
 |               |  float var     |   Register    |   Thread    | Thread       |
-|               |  float/var[100 |   Local       |   Thread    | Thread       |
+|               |  float/var[100]|   Local       |   Thread    | Thread       |
 | __ shared __  |  float var †   |   Shared      |   Block     | Block        |
 | __ device __  |  float var †   |   Global      |   Global    | Application  |
 | __ constant __|  float var †   |   Constant    |   Global    | Application  |
