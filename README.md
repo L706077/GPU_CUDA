@@ -713,6 +713,38 @@ cudaEventInterprocess
 | __ device __  |  float var †   |   Global      |   Global    | Application  |
 | __ constant __|  float var †   |   Constant    |   Global    | Application  |
 
+<br/>
+
+### Memory Allocation and Deallocation
+在分配global Memory時，最常用的就是下面這個了：
+```C++
+cudaError_t cudaMalloc(void **devPtr, size_t count);
+```
+如果分配出錯則返回cudaErrorMemoryAllocation。分配成功後，就得對該地址初始化值，要嘛從host調用cudaMemcpy賦值，要嘛調用下面的API初始化：
+```C++
+cudaError_t cudaMemset(void *devPtr, int value, size_t count);
+```
+釋放資源就是：
+```C++
+cudaError_t cudaFree(void *devPtr);
+```
+
+### Memory Transfer
+一旦global Memory分配好後，如果不用cudaMemset就得用下面這個：
+```C++
+cudaError_t cudaMemcpy(void *dst, const void *src, size_t count,enum cudaMemcpyKind kind);
+```
+kind就是下面這幾種：
+```C++
+cudaMemcpyHostToHost
+cudaMemcpyHostToDevice
+cudaMemcpyDeviceToHost
+cudaMemcpyDeviceToDevice
+```
+
+### Pinned Memory
+Host Memory的分配默認情況下是pageable的，也就是說，我們要承受因pagefault導致的操作，，這個操作要將host virtual Memory的數據轉移到由OS決定的不物理位置
+
 
 
 
