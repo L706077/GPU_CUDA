@@ -692,4 +692,25 @@ cudaEventBlockingSync
 cudaEventDisableTiming
 cudaEventInterprocess
 ```
+<br/>
+
+---
+
+### CUDA Memory Model
+- Registers : 寄存器是GPU最快的memory，kernel中沒有什麼特殊聲明的自動變量都是放在寄存器中的
+- Local memory : 如果register不夠用了，那麼就會使用local memory來代替這部分寄存器空間，local memory有很高的latency和較低的bandwidth
+- Shared memory : 用__shared__修飾符修飾的變量存放在shared memory，因為shared memory是on-chip的，他相比localMemory和global memory來說，擁有高的多bandwidth和低很多的latency，shared memory是以block為單位分配的
+- Constant memory : 當一個warp中所有thread都從同一個Memory地址讀取數據時，constant Memory表現最好。例如，計算公式中的係數
+- Texture memory : texture Memory是針對2D空間局部性的優化策略，所以thread要獲取2D數據就可以使用texture Memory來達到很高的性能
+- Global memory : global Memory是空間最大，latency最高，GPU最基礎的memory
+
+
+
+
+
+
+
+
+
+
 
