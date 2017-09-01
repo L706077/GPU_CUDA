@@ -743,11 +743,35 @@ cudaMemcpyDeviceToDevice
 ```
 
 ### Pinned Memory
-Host Memory的分配默認情況下是pageable的，也就是說，我們要承受因pagefault導致的操作，，這個操作要將host virtual Memory的數據轉移到由OS決定的不物理位置
+Host Memory的分配默認情況下是pageable的，也就是說，我們要承受因pagefault導致的操作，，這個操作要將host virtual Memory的數據轉移到由OS決定的不物理位置，當將pageable host Memory數據送到device時，CUDA驅動會首先分配一個臨時的page-locked或者pinned host Memory，並將host的數據放到這個臨時空間裡。然後GPU從這個所謂的pinned Memory中獲取數據。<br/>
 
+我們也可以顯式的直接使用pinned Memory，如下：
+```C++
+cudaError_t cudaMallocHost(void **devPtr, size_t count);
+```
+由於pinned Memory能夠被device直接訪問（不是指不通過PCIE了，而是相對左圖我們少了pageable Memory到pinned Memory這一步），所以他比pageable Memory具有相當高的讀寫帶寬，當然像這種東西依然不能過度使用，因為這會降低pageable Memory的數量，影響整個虛擬存儲性能<br/>
 
+Pinned Memory的釋放也比較特殊：
+```C++
+cudaError_t cudaFreeHost(void *ptr);
+```
+將許多小的傳輸合併到一次大的數據傳輸，並使用pinned Memory將降低很大的傳輸消耗。 <br/>
 
+### Zero-Copy Memory
+Zero-copy本身實質就是pinned memory並且被映射到了device的地址空間。下面是他的分配API：
+```C++
+cudaError_t cudaHostAlloc(void **pHost, size_t count, unsigned int flags);
+```
 
-
+其資源釋放當然也是cudaFreeHost，至於flag則是下面幾個選項：
+```C++
+cudaHostAllocDefault
+cudaHostAllocPortable
+cudaHostAllocWriteCombined
+cudaHostAllocMapped
+```
+當使用**cudaHostAllocDefault**時，cudaHostAlloc和cudaMallocHost等價。<br/>
+**cudaHostAllocWriteCombined**是在特殊系統配置情況下使用的，這塊pinned memory在PCIE上的傳輸更快，但是對於host自己來說，卻沒什麼效率。<br/>
+最常用的是**cudaHostAllocMapped**，就是返回一個標準的zero-copy。<br/>
 
 
