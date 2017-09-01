@@ -878,8 +878,18 @@ cudaDeviceReset();
  return EXIT_SUCCESS;
 }
 ```
+### Unified Virtual Addressing(UVA)
+在使用UVA的情況下，CPU和GPU使用同一塊連續的地址空間。<br/>
+使用UVA之後，就沒必要來獲取device的映射地址了，直接使用一個地址就可以，如下代碼所示：
+```C++
+// allocate zero-copy memory at the host side 
+cudaHostAlloc(( void **)& h_A, nBytes, cudaHostAllocMapped);
+cudaHostAlloc(( void **)& h_B, nBytes, cudaHostAllocMapped);
 
+ // initialize data at the host side 
+initialData(h_A, nElem);
+initialData(h_B, nElem);
 
-
-
-
+// invoke the kernel with zero-copy memory 
+sumArraysZeroCopy<<<grid, block>>>(h_A, h_B, d_C, nElem);
+```
