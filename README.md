@@ -933,7 +933,7 @@ template <typename T> __global__ void MeanFilterCUDA(T* pInput, T* pOutput, int 
 ```C++
 dim3 block(256,1,1);
 dim3 grid(nWidth+255/block.x, nHeight, 1);
-MeanFilterCUDA <<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
+MeanFilterCUDA<<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
 ```
 
 
