@@ -897,8 +897,9 @@ initialData(h_B, nElem);
 // invoke the kernel with zero-copy memory 
 sumArraysZeroCopy<<<grid, block>>>(h_A, h_B, d_C, nElem);
 ```
+<br/>
 
-
+---
 
 ### CUDA Image Process
 **高斯均值濾波**
