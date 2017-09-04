@@ -373,9 +373,11 @@ Occupancy專注於每個SM中可以並行的thread或者warp的數目。不管�
 __global__ void reduceNeighbored(int *g_idata, int *g_odata, unsigned int n) {
     // set thread ID
     unsigned int tid = threadIdx.x;
+    unsigned int idx = threadIdx.x + blockDim.x * blockIdx.x;
     
     // convert global data pointer to the local pointer of this block
     int *idata = g_idata + blockIdx.x * blockDim.x;
+    // extern __shared__ int sdata[];   //we can also use share memory to load data
     
     // boundary check
     if (idx >= n) return;
@@ -384,12 +386,14 @@ __global__ void reduceNeighbored(int *g_idata, int *g_odata, unsigned int n) {
     for (int stride = 1; stride < blockDim.x; stride *= 2) {
         if ((tid % (2 * stride)) == 0) {
             idata[tid] += idata[tid + stride];
+            //sdata[tid] += sdata[tid+stride];  //if using share memory
         }
         // synchronize within block
         __syncthreads();
     }
     // write result for this block to global mem
     if (tid == 0) g_odata[blockIdx.x] = idata[0];
+    //if (tid == 0) g_odata[blockIdx.x] = sdata[0]; //if using share memory
 }        
 ```
 <br />
@@ -893,3 +897,47 @@ initialData(h_B, nElem);
 // invoke the kernel with zero-copy memory 
 sumArraysZeroCopy<<<grid, block>>>(h_A, h_B, d_C, nElem);
 ```
+
+
+
+### CUDA Image Process
+**高斯均值濾波**
+```C++
+template <typename T> __global__ void MeanFilterCUDA(T* pInput, T* pOutput, int nKernelSize, int nWidth, int nHeight)
+{
+    int i = threadIdx.x + blockDim.x * blockIdx.x;
+    int j = blockIdx.y;
+    int pos = j*nWidth + i;  //pixel index
+    
+    if( i>0 && i < nWidth-1 && j > 0 && j < nHeight-1)  //process scope
+    {
+        float temp += pInput[pos]; 
+        temp += pInput[pos+1]; 
+        temp += pInput[pos-1]; 
+        temp += pInput[pos - nWidth]; 
+        temp += pInput[pos - nWidth + 1]; 
+        temp += pInput[pos - nWidth - 1]; 
+        temp += pInput[pos + nWidth]; 
+        temp += pInput[pos + nWidth + 1]; 
+        temp += pInput[pos + nWidth - 1];
+        pOutput[pos] = (T)(temp/nKernelSize);
+    }
+    else
+    {
+        pOutput[pos]=pInput[pos];    
+    }
+}
+```
+
+```C++
+dim3 block(256,1,1);
+dim3 grid(nWidth+255/block.x, nHeight, 1);
+MeanFilterCUDA <<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
+```
+
+
+
+
+
+
+
