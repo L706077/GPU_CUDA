@@ -901,7 +901,7 @@ sumArraysZeroCopy<<<grid, block>>>(h_A, h_B, d_C, nElem);
 
 ---
 
-### CUDA Image Process
+## CUDA Image Processing Example
 **高斯均值濾波**
 ```C++
 template <typename T> __global__ void MeanFilterCUDA(T* pInput, T* pOutput, int nKernelSize, int nWidth, int nHeight)
@@ -935,10 +935,12 @@ dim3 block(256,1,1);
 dim3 grid(nWidth+255/block.x, nHeight, 1);
 MeanFilterCUDA<<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
 ```
+<br/>
 
-
-
-
+#### 圖像金字塔
+這裡的向下與向上採樣，是對圖像的尺寸而言的（和金字塔的方向相反），向上就是圖像尺寸加倍，向下就是圖像尺寸減半。 <br/>
+- 對圖像向上採樣：pyrUp函數 [拉普拉斯金字塔(Laplacianpyramid)] **(放大)**
+- 對圖像向下採樣：pyrDown函數 [高斯金字塔 ( Gaussianpyramid)] **(縮小)**
 
 
 
