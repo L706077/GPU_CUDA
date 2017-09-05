@@ -16,7 +16,7 @@
 - [9](https://ppt.cc/9G_E)
 - [10](https://www.ptt.cc/bbs/C_and_CPP/M.1226502649.A.87B.html)
 - [11](https://www.ptt.cc/bbs/C_and_CPP/M.1227119415.A.BB5.html)
-- [12](http://www.cnblogs.com/1024incn/tag/CUDA/)
+- [12](https://www.ptt.cc/bbs/C_and_CPP/M.1227708346.A.7B4.html)
 - [13](https://www.ptt.cc/bbs/VideoCard/M.1228930736.A.779.html)
 - [14](https://www.ptt.cc/bbs/VideoCard/M.1231036765.A.649.html)
 - [15](https://www.ptt.cc/bbs/C_and_CPP/M.1233304368.A.013.html)
