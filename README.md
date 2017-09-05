@@ -908,6 +908,7 @@ sumArraysZeroCopy<<<grid, block>>>(h_A, h_B, d_C, nElem);
 
 
 **高斯均值濾波**
+2D grid 1D block
 ```C++
 template <typename T> __global__ void MeanFilterCUDA(T* pInput, T* pOutput, int nKernelSize, int nWidth, int nHeight)
 {
@@ -943,7 +944,7 @@ MeanFilterCUDA<<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
 <br/>
 
 #### 高斯模糊-Gaussian Blur
-kernel=3x3, imageSize=1024x1024,ColorImage
+kernel=3x3,  imageSize=1024x1024,  ColorImage, 2D grid 1D block
 ```C++
 __global__ void GaussianBlur(int *B, int *G, int *R, int numberOfPixels, int width, int *B_new, int *G_new, int *R_new)
 {
