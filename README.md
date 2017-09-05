@@ -1097,7 +1097,7 @@ cudaError_t GaussianBlurWithCuda(int *b, int *g, int *r, long size, int width)
 }
 ```
 
-
+<br/>
 
 
 #### 圖像金字塔
