@@ -973,7 +973,7 @@ __global__ void GaussianBlur(int *B, int *G, int *R, int numberOfPixels, int wid
 			return;
 		}
 		
-  //other points
+                //other points
 		s = mask[4] + mask[1] + mask[2] + mask[5] + mask[0] + mask[3];
 		B_new[index] = (int)((B[index] * mask[4] + B[index + width] * mask[1] + B[index + width + 1] * mask[2] + B[index + 1] * mask[5] + B[index + width - 1] * mask[0] + B[index - 1] * mask[3]) / s);
 		R_new[index] = (int)((R[index] * mask[4] + R[index + width] * mask[1] + R[index + width + 1] * mask[2] + R[index + 1] * mask[5] + R[index + width - 1] * mask[0] + R[index - 1] * mask[3]) / s);
@@ -1005,14 +1005,14 @@ __global__ void GaussianBlur(int *B, int *G, int *R, int numberOfPixels, int wid
 		G_new[index] = (int)((G[index] * mask[4] + G[index - 1] * mask[3] + G[index - width - 1] * mask[6] + G[index - width] * mask[7] + G[index + 1] * mask[5] + G[index - width] * mask[8]) / s);
 		return;
 	}
-	if (index % width == 0){     //left colum
+	if (index % width == 0){     //left column
 		s = mask[4] + mask[1] + mask[2] + mask[5] + mask[8] + mask[7];
 		B_new[index] = (int)((B[index] * mask[4] + B[index + width] * mask[1] + B[index + width + 1] * mask[2] + B[index + 1] * mask[5] + B[index - width + 1] * mask[8] + B[index - width]) / s);
 		G_new[index] = (int)((G[index] * mask[4] + G[index + width] * mask[1] + G[index + width + 1] * mask[2] + G[index + 1] * mask[5] + G[index - width + 1] * mask[8] + G[index - width]) / s);
 		R_new[index] = (int)((R[index] * mask[4] + R[index + width] * mask[1] + R[index + width + 1] * mask[2] + R[index + 1] * mask[5] + R[index - width + 1] * mask[8] + R[index - width]) / s);
 		return;
 	}
-	if (index % width == width - 1){    //left colum
+	if (index % width == width - 1){    //left column
 		s = mask[4] + mask[1] + mask[0] + mask[3] + mask[6] + mask[7];
 		B_new[index] = (int)((B[index] * mask[4] + B[index + width] * mask[1] + B[index + width - 1] * mask[0] + B[index - 1] * mask[3] + B[index - width - 1] * mask[6] + B[index - width] * mask[7]) / s);
 		R_new[index] = (int)((R[index] * mask[4] + R[index + width] * mask[1] + R[index + width - 1] * mask[0] + R[index - 1] * mask[3] + R[index - width - 1] * mask[6] + R[index - width] * mask[7]) / s);
@@ -1040,7 +1040,65 @@ __global__ void GaussianBlur(int *B, int *G, int *R, int numberOfPixels, int wid
 ```
 
 ```C++
+cudaError_t GaussianBlurWithCuda(int *b, int *g, int *r, long size, int width)
+{
+	int *d_B, *d_G, *d_R;
+	int *d_B_new, *d_G_new, *d_R_new;
+	cudaError_t cudaStatus;
 
+	// Choose which GPU to run on, change this on a multi-GPU system.
+	cudaStatus = cudaSetDevice(0);
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaSetDevice failed!  Do you have a CUDA-capable GPU installed?");
+		goto Error;
+	}
+
+	// Allocate GPU buffers for three vectors (two input, one output)    .
+	cudaStatus = cudaMalloc((void**)&d_B, size * sizeof(int));
+	cudaStatus = cudaMalloc((void**)&d_B_new, size * sizeof(int));
+	cudaStatus = cudaMalloc((void**)&d_G, size * sizeof(int));
+	cudaStatus = cudaMalloc((void**)&d_G_new, size * sizeof(int));
+	cudaStatus = cudaMalloc((void**)&d_R_new, size * sizeof(int));
+	cudaStatus = cudaMalloc((void**)&d_R, size * sizeof(int));
+
+        // Copy input vectors from host memory to GPU buffers.
+	cudaStatus = cudaMemcpy(d_B, b, size * sizeof(int), cudaMemcpyHostToDevice);
+        cudaStatus = cudaMemcpy(d_G, g, size * sizeof(int), cudaMemcpyHostToDevice);
+	cudaStatus = cudaMemcpy(d_R, r, size * sizeof(int), cudaMemcpyHostToDevice);
+
+	// Launch a kernel on the GPU with one thread for each element.
+	GaussianBlur << < (size + 1023) / 1024, 1024 >> >(d_B, d_G, d_R, size, width, d_B_new, d_G_new, d_R_new);
+
+	// Check for any errors launching the kernel
+	cudaStatus = cudaGetLastError();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "GaussianBlur launch failed: %s\n", cudaGetErrorString(cudaStatus));
+		goto Error;
+	}
+
+	// cudaDeviceSynchronize waits for the kernel to finish, and returns
+	// any errors encountered during the launch.
+	cudaStatus = cudaDeviceSynchronize();
+	if (cudaStatus != cudaSuccess) {
+		fprintf(stderr, "cudaDeviceSynchronize returned error code %d after launching GaussianBlur!\n", cudaStatus);
+		goto Error;
+	}
+
+	// Copy output vector from GPU buffer to host memory.
+	cudaStatus = cudaMemcpy(b, d_B_new, size * sizeof(int), cudaMemcpyDeviceToHost);
+	cudaStatus = cudaMemcpy(g, d_G_new, size * sizeof(int), cudaMemcpyDeviceToHost);
+	cudaStatus = cudaMemcpy(r, d_R_new, size * sizeof(int), cudaMemcpyDeviceToHost);
+
+	cudaFree(d_B);
+	cudaFree(d_G);
+	cudaFree(d_R);
+
+	cudaFree(d_B_new);
+	cudaFree(d_G_new);
+	cudaFree(d_R_new);
+
+	return cudaStatus;
+}
 ```
 
 
