@@ -1103,7 +1103,7 @@ cudaError_t GaussianBlurWithCuda(int *b, int *g, int *r, long size, int width)
 #### 圖像金字塔
 這裡的向下與向上採樣，是對圖像的尺寸而言的（和金字塔的方向相反），向上就是圖像尺寸加倍，向下就是圖像尺寸減半。 <br/>
 - **對圖像向上採樣**：pyrUp函數 [拉普拉斯金字塔(Laplacianpyramid)] **(放大)** <br/>
-
+--->先對雙數行與列補0，在卷積
 
 
 - **對圖像向下採樣**：pyrDown函數 [高斯金字塔 ( Gaussianpyramid)] **(縮小)** <br/>
