@@ -1019,8 +1019,6 @@ __global__ void GaussianBlur(int *B, int *G, int *R, int numberOfPixels, int wid
 		G_new[index] = (int)((G[index] * mask[4] + G[index + width] * mask[1] + G[index + width - 1] * mask[0] + G[index - 1] * mask[3] + G[index - width - 1] * mask[6] + G[index - width] * mask[7]) / s);
 		return;
 	}
-
-
 		int poz_1 = index - width - 1;
 		int poz_2 = index - width;
 		int poz_3 = index - width + 1;
@@ -1035,7 +1033,6 @@ __global__ void GaussianBlur(int *B, int *G, int *R, int numberOfPixels, int wid
 		G_new[index] = (int)(((G[poz_1] * mask[0]) + (G[poz_2] * mask[1]) + (G[poz_3] * mask[2]) + (G[poz_4] * mask[3]) + (G[poz_5] * mask[4]) + (G[poz_6] * mask[5]) + (G[poz_7] * mask[6]) + (G[poz_8] * mask[7]) + (G[poz_9] * mask[8])) / s);
 		R_new[index] = (int)(((R[poz_1] * mask[0]) + (R[poz_2] * mask[1]) + (R[poz_3] * mask[2]) + (R[poz_4] * mask[3]) + (R[poz_5] * mask[4]) + (R[poz_6] * mask[5]) + (R[poz_7] * mask[6]) + (R[poz_8] * mask[7]) + (R[poz_9] * mask[8])) / s);
 	
-
 }
 ```
 
@@ -1088,11 +1085,9 @@ cudaError_t GaussianBlurWithCuda(int *b, int *g, int *r, long size, int width)
 	cudaStatus = cudaMemcpy(b, d_B_new, size * sizeof(int), cudaMemcpyDeviceToHost);
 	cudaStatus = cudaMemcpy(g, d_G_new, size * sizeof(int), cudaMemcpyDeviceToHost);
 	cudaStatus = cudaMemcpy(r, d_R_new, size * sizeof(int), cudaMemcpyDeviceToHost);
-
 	cudaFree(d_B);
 	cudaFree(d_G);
 	cudaFree(d_R);
-
 	cudaFree(d_B_new);
 	cudaFree(d_G_new);
 	cudaFree(d_R_new);
