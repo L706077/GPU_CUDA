@@ -902,6 +902,11 @@ sumArraysZeroCopy<<<grid, block>>>(h_A, h_B, d_C, nElem);
 ---
 
 ## CUDA Image Processing Example
+
+### reference:
+- [1_opencv+cuda](http://lps-683.iteye.com/blog/2282079)
+
+
 **高斯均值濾波**
 ```C++
 template <typename T> __global__ void MeanFilterCUDA(T* pInput, T* pOutput, int nKernelSize, int nWidth, int nHeight)
