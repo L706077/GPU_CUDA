@@ -943,6 +943,12 @@ MeanFilterCUDA<<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
 ```
 <br/>
 
+#### BGR to Grey
+- [1](https://stackoverflow.com/questions/19421529/cuda-convert-rgb-image-to-grayscale)
+
+
+<br/>
+
 #### 高斯模糊-Gaussian Blur
 kernel=3x3,  imageSize=1024x1024,  ColorImage, 2D grid 1D block
 ```C++
