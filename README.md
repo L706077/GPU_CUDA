@@ -950,7 +950,7 @@ MeanFilterCUDA<<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
 <br/>
 
 #### 高斯模糊-Gaussian Blur
-kernel=3x3,  imageSize=1024x1024,  ColorImage, 2D grid 1D block
+kernel=3x3,  imageSize=1024x1024,  ColorImage, 1D grid 1D block
 ```C++
 __global__ void GaussianBlur(int *B, int *G, int *R, int numberOfPixels, int width, int *B_new, int *G_new, int *R_new)
 {
