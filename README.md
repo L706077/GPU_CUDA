@@ -946,7 +946,8 @@ MeanFilterCUDA<<<grid, block>>>(dataIn, dataOut, kernelsize, width, height);
 #### 轉灰階BGR to Grey
 - [1](https://stackoverflow.com/questions/19421529/cuda-convert-rgb-image-to-grayscale)
 - [code link](https://github.com/L706077/GPU_CUDA/tree/master/cuda_test7)
-**1D-grid 1D-block**
+
+1D-grid 1D-block
 ```C++
 __global__ void kernel1(unsigned char* d_in, unsigned char* d_out, int rows, int cols){
 
@@ -963,7 +964,7 @@ __global__ void kernel1(unsigned char* d_in, unsigned char* d_out, int rows, int
 }
 ```
 
-**1D-grid 1D-block**
+1D-grid 1D-block
 ```C++
 __global__ void kernel2(unsigned char* d_in, unsigned char* d_out, int rows, int cols){
 
