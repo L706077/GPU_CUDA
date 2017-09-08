@@ -587,6 +587,17 @@ for ( int i = 0 ; i < nStreams; i++ ) {
 }
 ```
 
+因為**default stream(stream=0 or 未定義)**較為特殊，是**同步執行**的，任何使用default stream之**複製記憶體、內核計算**操作皆必須等其他所有非**default stream流**的操作完成之後才可以開始，其後任何其他**非default stream**之操作也必須等待default stream的所有操作結束後才能往下執行。<br/>
+以下範例主機與設備的資料傳輸使用和內核計算只用不同的非default stream，其可實現異步傳輸和內核計算之重疊。
+```C++
+cudaStreamCreate(&stream1);
+cudaStreamCreate(&stream2);
+cudaMemcpyAsync(a_d, a_h, size, cudaMemcpyHostToDevice, stream1);
+kernel<<< grid, block, 0, stream2 >>>(otherData_d);
+```
+
+<br/>
+
 ### Cuda Events
 
 Event是stream相關的一個重要概念，其用來標記strean執行過程的某個特定的點。其主要用途是：
