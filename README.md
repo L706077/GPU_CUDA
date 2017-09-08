@@ -587,7 +587,7 @@ kernel<<<N/nThreads, nThreads>>>(a_d);
 ```C++
 size = N*sizeof(float)/nStreams;
 for ( int i = 0 ; i < nStreams; i++ ) {
-    int offset = i * N/nstreams;
+    int offset = i * N/nStreams;
     cudaMemcpyAsync( a_d+offset, a_h+offset, size, streams[i]);
     kernel <<grid, block, 0 , streams[i]>>(a_d+offset);
     cudaMemcpyAsync( a_h+offset, a_d+offset, size, streams[i]);
