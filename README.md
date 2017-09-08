@@ -573,13 +573,24 @@ cudaError_t cudaStreamCreateWithPriority(cudaStream_t* pStream, unsigned int fla
 ```
 <br />
 
-以下代碼使用了三個stream，數據傳輸和kernel運算都被分配在了這幾個並發的stream中。
+以下是內核串行執行和異步執行之對比:
 ```C++
+cudaMemcpy(a_d, a_h, N*sizeof(float), dir);
+kernel<<<N/nThreads, nThreads>>>(a_d);
+```
+上面代碼中，內核函數要等N個數據傳輸完成才會啟動，故數據傳輸和內核是串行的。<br/>
+
+
+
+假設N可以被nThreads x nStreams整除，多個異步傳輸和內核計算被劃分到nStreams中，實現數據傳輸和內核計算之重疊(overlap)，由於同一個流內之操作是串行的，顧每個流的內核計算必須等相應的數據塊傳輸完成後才可以啟動。 <br/>
+以下代碼使用了多個nStream，數據傳輸和kernel運算都被分配在了這幾個並發的stream中。
+```C++
+size = N*sizeof(float)/nStreams;
 for ( int i = 0 ; i < nStreams; i++ ) {
-     int offset = i * bytesPerStream;
-    cudaMemcpyAsync( &d_a[offset], &a [offset], bytePerStream, streams[i]);
-    kernel <<grid, block, 0 , streams[i]>>(& d_a[offset]);
-    cudaMemcpyAsync( &a[offset], & d_a[offset], bytesPerStream, streams[i]);
+    int offset = i * N/nstreams;
+    cudaMemcpyAsync( a_d+offset, a_h+offset, size, streams[i]);
+    kernel <<grid, block, 0 , streams[i]>>(a_d+offset);
+    cudaMemcpyAsync( a_h+offset, a_d+offset, size, streams[i]);
 }
 
 for ( int i = 0 ; i < nStreams; i++ ) {
