@@ -63,8 +63,8 @@
 |PerBlockRegistMem|65536 byte  |     	   |     |     | <br/>
 
 **FLOPS = Floating-point operations per second(每秒浮點數運算次數)**<br/>
-**TFLOPS（teraFLOPS）等於每秒一兆（=1012）**<br/>
-**GFLOPS（gigaFLOPS）等於每秒拾億（=109）**<br/>
+**TFLOPS（teraFLOPS）等於每秒一兆（=10^12）**<br/>
+**GFLOPS（gigaFLOPS）等於每秒拾億（=10^9）**<br/>
 
 ---
 
