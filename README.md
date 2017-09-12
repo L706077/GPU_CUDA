@@ -61,6 +61,7 @@
 |MaxThreadPerBlock|  1024	  |     	   |    	|     |
 |PerBlockSharedMem|49152 byte  |     	   |    	|     |
 |PerBlockRegistMem|65536 byte  |     	   |     |     |
+
 **FLOPS = Floating-point operations per second(每秒浮點數運算次數)**<br/>
 **TFLOPS（teraFLOPS）等於每秒一兆（=1012）**<br/>
 **GFLOPS（gigaFLOPS）等於每秒拾億（=109）**<br/>
