@@ -734,6 +734,9 @@ cudaEventInterprocess
 - **Constant memory** : 當一個warp中所有thread都從同一個Memory地址讀取數據時，constant Memory表現最好。例如，計算公式中的係數
 - **Texture memory** : texture Memory是針對2D空間局部性的優化策略，所以thread要獲取2D數據就可以使用texture Memory來達到很高的性能
 - **Global memory** : global Memory是空間最大，latency最高，GPU最基礎的memory
+- **Pageable memory** : 主機端可分頁內存，一般透過API[malloc(), new(), free()]分配及回收。
+- **Pinned memory** : 主機端頁鎖內存，只分配在主機端的物理內存上，地址adress固定，可有效提高主機端與設備端的通訊效率。
+
 
 ### CUDA Variable Declaration Summary
 |  QUALIFIER    |  VARIABLE NAME |   MEMORY      |    SCOPE    |   LIFESPAN   |
@@ -745,6 +748,199 @@ cudaEventInterprocess
 | __ constant __|  float var †   |   Constant    |   Global    | Application  |
 
 <br/>
+
+所有的標籤 __ shared __, __ device __, __ constant __ 宣告的變數所對應的位址只有在核心中能直接使用, CUDA 將這些變數稱為 Symbol, 在主機中不能直接以C/C++ 原生的方式處理 (進行取值或取址), 必需透過 API。 <br/>
+
+- (1) 全域記憶體  __ device __     在檔案範圍宣告
+- (2) 常數記憶體  __ constant __   在檔案範圍宣告
+- (3) 共享記憶體  __ shared __     在函式範圍宣告
+
+__ device __ : 必需先透過 cudaGetSymbolAddress() 取得位址, 然後才可以呼叫其它的主機 API, 例如 cudaMemcpy() 等或丟給其它 kernel 進行操作。<br/>
+__ constant __ : 只能透過 cudaMemcpyToSymbol() 和 cudaMemcpyFromSymbol()進行存取. (note: cudaGetSymbolAddress() 不能用) <br/>
+__ shared __ : 主機無法直接存取, 只能設定其大小。<br/>
+
+
+
+### shared memory
+**一維陣列的區域平均,未使用共享變數:**
+```C++
+	#define BLOCK_DIM 10
+        __global__ void local_average_1(float *r, float *a){
+                int j=threadIdx.x;                //j 為執行緒索引
+                if(j==0){
+                        r[j]=(2*a[j]+a[j+1])/4;         //左邊界=0
+                }
+                else if(j==BLOCK_DIM-1){
+                        r[j]=(a[j-1]+2*a[j])/4;         //右邊界=0
+                }
+                else{
+                        r[j]=(a[j-1]+2*a[j]+a[j+1])/4;  //輸出加權平均
+                }
+          }
+          local_average_1<<<1,BLOCK_DIM>>> (r, a);
+```
+
+**一維陣列的區域平均,使用共享變數:**
+```C++
+	#define BLOCK_DIM 10
+        __global__ void local_average_2(float *r, float *a){
+                int j=threadIdx.x;                //j 為執行緒索引
+                __shared__ float s[BLOCK_DIM+2];  //宣告共享記憶體
+                s[j+1]=a[j];      //多執行緒一起將資料載入共享記憶體
+                                  //使用 +1 的偏移, 0 和 BLOCK_DIM+1
+                                  //兩點做為陣列邊界
+                if(j==0){         //只用一個執行緒設定邊界值
+                        s[0]=s[BLOCK_DIM+1]=0;
+                }
+                __syncthreads();  //同步化, 確保資料己存好
+                r[j]=(s[j]+2*s[j+1]+s[j+2])/4;  //輸出加權平均
+          }
+          local_average_2<<<1,BLOCK_DIM>>> (r, a);
+```
+
+**平滑處理 (使用相鄰的三點做加權平均,使資料變平滑)**
+```C++
+#include<stdio.h>
+#include<time.h>
+#include<cuda.h>
+#define BLOCK 512
+//(1) 對照組 (host 版).
+void smooth_host(float* b, float* a, int n){
+        for(int k=1; k<n-1; k++){
+                b[k]=(a[k-1]+2*a[k]+a[k+1])*0.25;
+        }
+        //邊界為0
+        b[0]=(2*a[0]+a[1])*0.25;
+        b[n-1]=(a[n-2]+2*a[n-1])*0.25;
+}
+//(2) 裝置核心(global 版).
+__global__ void smooth_global(float* b, float* a, int n){
+        int k = blockIdx.x*blockDim.x+threadIdx.x;
+        if(k==0){
+                b[k]=(2*a[0]+a[1])*0.25;
+        }
+        else if(k==n-1){
+                b[k]=(a[n-2]+2*a[n-1])*0.25;
+        }
+        else if(k<n){
+                b[k]=(a[k-1]+2*a[k]+a[k+1])*0.25;
+        }
+}
+//(3) 裝置核心(shared 版).
+__global__ void smooth_shared(float* b, float* a, int n){
+        int base = blockIdx.x*blockDim.x;
+        int t = threadIdx.x;
+        __shared__ float s[BLOCK+2];//宣告共享記憶體.
+   		 //載入主要資料 s[1]~s[BLOCK]
+    		 // s[0] <-- a[base-1]  (左邊界)
+    		 // s[1] <-- a[base]
+    		 // s[2] <-- a[base+1]
+    		 // s[3] <-- a[base+2]
+    		 //      ...
+    		 // s[BLOCK]   <-- a[base+BLOCK-1]
+    		 // s[BLOCK+1] <-- a[base+BLOCK]  (右邊界)
+        if(base+t<n){
+                s[t+1]=a[base+t];
+        }
+        if(t==0){
+                //左邊界.
+                if(base==0){
+                        s[0]=0;
+                }
+                else{
+                        s[0]=a[base-1];  //載入邊界資料 s[0] & s[BLOCK+1] (只用兩個執行緒處理) 
+                }
+        }       
+        if(t==32){                       //*** 使用獨立的 warp 讓 branch 更快 ***
+                if(base+BLOCK>=n){       //右邊界.
+                        s[n-base+1]=0;
+                }
+                else{
+                        s[BLOCK+1] = a[base+BLOCK];
+                }
+        }
+        __syncthreads();                                   //同步化 (確保共享記憶體已寫入)
+        if(base+t<n){
+                b[base+t]=(s[t]+2*s[t+1]+s[t+2])*0.25;     //輸出三點加權平均值
+        }
+};
+```
+**主程式:**
+```C++
+int main(){
+        int num=10*1000*1000;
+        int loop=130;  //測試迴圈次數 (量時間用)
+        float* a=new float[num];
+        float* b=new float[num];
+        float* bg=new float[num];
+        float* bs=new float[num];
+        float *GA, *GB;
+        cudaMalloc((void**) &GA, sizeof(float)*num);
+        cudaMalloc((void**) &GB, sizeof(float)*num);
+
+        for(int k=0; k<num; k++){
+                a[k]=(float)rand()/RAND_MAX;
+                b[k]=bg[k]=bs[k]=0;
+        }
+        cudaMemcpy(GA, a, sizeof(float)*num, cudaMemcpyHostToDevice);
+    //Test(1): smooth_host
+    //--------------------------------------------------
+        double t_host=(double)clock()/CLOCKS_PER_SEC;
+        for(int k=0; k<loop; k++){
+                smooth_host(b,a,num);
+        }
+        t_host=((double)clock()/CLOCKS_PER_SEC-t_host)/loop;
+
+    //Test(2): smooth_global (GRID*BLOCK 必需大於 num).
+    //--------------------------------------------------
+        double t_global=(double)clock()/CLOCKS_PER_SEC;
+        cudaThreadSynchronize();
+        for(int k=0; k<loop; k++){
+                smooth_global<<<num/BLOCK+1,BLOCK>>>(GB,GA,num);
+        }
+        cudaThreadSynchronize();
+        t_global=((double)clock()/CLOCKS_PER_SEC-t_global)/loop;
+        cudaMemcpy(bg, GB, sizeof(float)*num, cudaMemcpyDeviceToHost);
+
+    //Test(3): smooth_shared (GRID*BLOCK 必需大於 num).
+    //--------------------------------------------------
+        double t_shared=(double)clock()/CLOCKS_PER_SEC;
+        cudaThreadSynchronize();
+        for(int k=0; k<loop; k++){
+                smooth_shared<<<num/BLOCK+1,BLOCK>>>(GB,GA,num);
+        }
+        cudaThreadSynchronize();
+        t_shared=((double)clock()/CLOCKS_PER_SEC-t_shared)/loop;
+        cudaMemcpy(bs, GB, sizeof(float)*num, cudaMemcpyDeviceToHost);
+     //--------------------------------------------------
+        double sum_dg2=0, sum_ds2=0, sum_b2=0;            //比較正確性
+        for(int k=0; k<num; k++){
+                double dg=bg[k]-b[k];
+                double ds=bs[k]-b[k];
+
+                sum_b2+=b[k]*b[k];
+                sum_dg2+=dg*dg;
+                sum_ds2+=ds*ds;
+        }
+    //--------------------------------------------------
+        printf("vector size: %d \n", num);
+        printf("\n");
+        printf("Smooth_Host:   %g ms\n", t_host*1000);    //時間.
+        printf("Smooth_Global: %g ms\n", t_global*1000);
+        printf("Smooth_Shared: %g ms\n", t_shared*1000);
+        printf("\n");
+        printf("Diff(Smooth_Global): %g \n", sqrt(sum_dg2/sum_b2));
+        printf("Diff(Smooth_Shared): %g \n", sqrt(sum_ds2/sum_b2));
+        printf("\n");
+        cudaFree(GA);                                     //釋放裝置記憶體.
+        cudaFree(GB);
+        delete [] a;
+        delete [] b;
+        delete [] bg;
+        delete [] bs;
+        return 0;
+}
+```
 
 ### Memory Allocation and Deallocation
 在分配global Memory時，最常用的就是下面這個了：
