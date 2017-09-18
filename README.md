@@ -749,7 +749,7 @@ cudaEventInterprocess
 
 <br/>
 
-所有的標籤**__ shared __ , __ device __ , __ constant __** 宣告的變數所對應的位址只有在核心中能直接使用, CUDA 將這些變數稱為 Symbol, 在主機中不能直接以C/C++ 原生的方式處理 (進行取值或取址), 必需透過 API。 <br/>
+所有的標籤 __ shared __ , __ device __ , __ constant __ 宣告的變數所對應的位址只有在核心中能直接使用, CUDA 將這些變數稱為 Symbol, 在主機中不能直接以C/C++ 原生的方式處理 (進行取值或取址), 必需透過 API。 <br/>
 
 - (1) 全域記憶體  **__ device __**    在檔案範圍宣告
 - (2) 常數記憶體  **__ constant __**   在檔案範圍宣告
