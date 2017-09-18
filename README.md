@@ -749,15 +749,15 @@ cudaEventInterprocess
 
 <br/>
 
-所有的標籤 __ shared __, __ device __, __ constant __ 宣告的變數所對應的位址只有在核心中能直接使用, CUDA 將這些變數稱為 Symbol, 在主機中不能直接以C/C++ 原生的方式處理 (進行取值或取址), 必需透過 API。 <br/>
+所有的標籤**__ shared __**, **__ device __**, **__ constant __** 宣告的變數所對應的位址只有在核心中能直接使用, CUDA 將這些變數稱為 Symbol, 在主機中不能直接以C/C++ 原生的方式處理 (進行取值或取址), 必需透過 API。 <br/>
 
-- (1) 全域記憶體  __ device __     在檔案範圍宣告
-- (2) 常數記憶體  __ constant __   在檔案範圍宣告
-- (3) 共享記憶體  __ shared __     在函式範圍宣告
+- (1) 全域記憶體  **__ device __**    在檔案範圍宣告
+- (2) 常數記憶體  **__ constant __**   在檔案範圍宣告
+- (3) 共享記憶體  **__ shared __**     在函式範圍宣告
 
-__ device __ : 必需先透過 cudaGetSymbolAddress() 取得位址, 然後才可以呼叫其它的主機 API, 例如 cudaMemcpy() 等或丟給其它 kernel 進行操作。<br/>
-__ constant __ : 只能透過 cudaMemcpyToSymbol() 和 cudaMemcpyFromSymbol()進行存取. (note: cudaGetSymbolAddress() 不能用) <br/>
-__ shared __ : 主機無法直接存取, 只能設定其大小。<br/>
+**__ device __ :** 必需先透過 cudaGetSymbolAddress() 取得位址, 然後才可以呼叫其它的主機 API, 例如 cudaMemcpy() 等或丟給其它 kernel 進行操作。<br/>
+**__ constant __ :** 只能透過 cudaMemcpyToSymbol() 和 cudaMemcpyFromSymbol()進行存取. (note: cudaGetSymbolAddress() 不能用) <br/>
+**__ shared __ :** 主機無法直接存取, 只能設定其大小。<br/>
 
 
 
