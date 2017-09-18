@@ -762,6 +762,19 @@ cudaEventInterprocess
 
 
 ### shared memory
+- static shared memory:
+```C++
+__shared__ float tile[size_y][size_x];
+```
+
+- dynamic shared memory:
+```C++
+extern __shared__ int tile[];
+```
+```C++
+kernel<<<grid, block, isize * sizeof(int)>>>(...)
+```
+
 **一維陣列的區域平均,未使用共享變數:**
 ```C++
 	#define BLOCK_DIM 10
