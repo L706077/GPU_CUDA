@@ -762,6 +762,8 @@ cudaEventInterprocess
 
 
 ### shared memory
+同一個線程內或同一塊中的不同線程中需要**多次**訪問數據時，它才有用。如果您只訪問**一次**數據，那麼共享內存不會幫助您。
+
 - static shared memory:
 ```C++
 __shared__ float tile[size_y][size_x];
