@@ -1152,6 +1152,7 @@ sumArraysZeroCopy<<<grid, block>>>(h_A, h_B, d_C, nElem);
 
 
 **高斯均值濾波** <br/>
+- [meanfilter](https://github.com/L706077/GPU_CUDA/tree/master/cuda_test8)
 2D grid 1D block
 ```C++
 template <typename T> __global__ void MeanFilterCUDA(T* pInput, T* pOutput, int nKernelSize, int nWidth, int nHeight)
