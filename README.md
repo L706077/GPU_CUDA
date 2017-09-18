@@ -773,14 +773,14 @@ cudaMemcpyDeviceToHost
 cudaMemcpyDeviceToDevice
 ```
 
-### Pinned Memory
-Host Memory的分配默認情況下是pageable的，也就是說，我們要承受因pagefault導致的操作，，這個操作要將host virtual Memory的數據轉移到由OS決定的不物理位置，當將pageable host Memory數據送到device時，CUDA驅動會首先分配一個臨時的page-locked或者pinned host Memory，並將host的數據放到這個臨時空間裡。然後GPU從這個所謂的pinned Memory中獲取數據。<br/>
+### Pinned Memory (頁鎖定記憶體)
+Host Memory的分配預設(default)情況下是pageable的，也就是說，我們要承受因pagefault導致的操作，這個操作要將host virtual Memory的數據轉移到由OS決定的不物理位置，當將pageable host Memory數據送到device時，CUDA驅動會首先分配一個臨時的page-locked或者pinned host Memory，並將host的數據放到這個臨時空間裡。然後GPU從這個所謂的pinned Memory中獲取數據。<br/>
 
 我們也可以顯式的直接使用pinned Memory，如下：
 ```C++
 cudaError_t cudaMallocHost(void **devPtr, size_t count);
 ```
-由於pinned Memory能夠被device直接訪問（不是指不通過PCIE了，而是相對左圖我們少了pageable Memory到pinned Memory這一步），所以他比pageable Memory具有相當高的讀寫帶寬，當然像這種東西依然不能過度使用，因為這會降低pageable Memory的數量，影響整個虛擬存儲性能<br/>
+由於pinned Memory能夠被device直接訪問（不是指不通過PCIE了，而是我們少了pageable Memory到pinned Memory這一步），所以他比pageable Memory具有相當高的讀寫帶寬，當然像這種東西依然不能過度使用，因為這會降低pageable Memory的數量，影響整個虛擬存儲性能<br/>
 
 Pinned Memory的釋放也比較特殊：
 ```C++
@@ -788,8 +788,15 @@ cudaError_t cudaFreeHost(void *ptr);
 ```
 將許多小的傳輸合併到一次大的數據傳輸，並使用pinned Memory將降低很大的傳輸消耗。 <br/>
 
+使用頁鎖定內存可以得到以下性能提升:
+- (1)主機端頁鎖定內存和設備內存的數據傳輸可以與內核函數平行執行，以實現異步執行來有效隱藏主機與設備的數據傳輸時間。<br/>
+- (2)主機頁鎖定內存可以營舍到設備端的地址空間，這樣不必在主機端內存與設備端內存之間進行數據傳輸，減少了分配顯存與數據複製時間<br/>
+- (3)主機端頁鎖定內存不能分配過多，此可能使操作系統和其他程序沒有足夠物理內存使用，導致整體性能下降。<br/>
+
+
 ### Zero-Copy Memory
-Zero-copy本身實質就是pinned memory並且被映射到了device的地址空間。下面是他的分配API：
+Zero-copy本身實質就是pinned memory並且被映射到了device的地址空間。使用設備端kernel函數可直接訪問主機端頁鎖內存，不必進行內存及顯存間的數據複製。<br/>
+下面是他的分配API：
 ```C++
 cudaError_t cudaHostAlloc(void **pHost, size_t count, unsigned int flags);
 ```
