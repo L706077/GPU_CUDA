@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtest9_cu_obj.a  CMakeFiles/test9_cu_obj.dir/test9_cu_obj_generated_test9_cu.cu.o
+/usr/bin/ranlib libtest9_cu_obj.a
