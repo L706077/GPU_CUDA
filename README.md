@@ -797,6 +797,7 @@ cudaEventInterprocess
           }
           local_average_2<<<1,BLOCK_DIM>>> (r, a);
 ```
+<br/>
 
 **平滑處理 (使用相鄰的三點做加權平均,使資料變平滑)**
 ```C++
