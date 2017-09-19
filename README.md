@@ -1528,6 +1528,27 @@ cudaEventSynchronize( eventB);
 kernel<<<..., streamA>>>(...);
 ```
 
+### UVA and Multi-GPU Programming
+- Peer-to-peer(P2P) memcopies
+
+**允許current GPU訪問peer_device GPU:**
+```C++
+ cudaDeviceEnablePeerAccess( peer_device, 0 )
+```
+
+**檢查是否 dev_X可以訪問 dev_Y的内存 並返回0/1(第一个參數):**
+```C++
+ cudaDeviceCanAccessPeer( &accessible, dev_X, dev_Y )
+```
+
+
+
+
+
+
+
+
+
 
 
 
