@@ -1454,7 +1454,7 @@ W=1/16 | 6,24,36,24, 6 |
 -----
 ### Multi-GPU
 
-OK: <br/>
+Example1 : OK <br/>
 • device-1 is current  <br/>
 • eventB 和 streamB 属于device-1  <br/>
 ```C++
@@ -1472,7 +1472,7 @@ cudaEventSynchronize( eventB);
 ```
 <br/>
 
-錯誤: <br/>
+Example2 : 錯誤: <br/>
 • device-1 is current <br/>
 • streamA 属于device-0 <br/>
 ```C++
@@ -1490,7 +1490,7 @@ cudaEventSynchronize( eventB);
 ```
 <br/>
 
-錯誤: <br/>
+Example3 : 錯誤: <br/>
 • eventA 属于device-0 <br/>
 • streamB 属于device-1 <br/>
 ```C++
@@ -1506,7 +1506,7 @@ kernel<<<..., streamB>>>(...);
 cudaEventRecord( eventA, streamB);
 ```
 
-OK: <br/>
+Example4 : OK: <br/>
 • device-0 is current <br/>
 • 同步/查詢其他設備的事件/流是允許的 <br/>
 • device-0 不會執行内核除非device-1 完成它的内核函数 <br/>
@@ -1516,11 +1516,13 @@ cudaEvent_t eventA, eventB;
 cudaSetDevice( 0);
 cudaStreamCreate( &streamA ); // streamA 和eventA 属于device-0
 cudaEventCreaet( &eventA );
+//----------------device(1) is current------------------
 cudaSetDevice( 1 );
 cudaStreamCreate( &streamB ); // streamB 和 eventB 属于device-1
 cudaEventCreate( &eventB );
 kernel<<<..., streamB>>>(...);
 cudaEventRecord( eventB, streamB);
+------------------device(2) is current------------------
 cudaSetDevice( 0);
 cudaEventSynchronize( eventB);
 kernel<<<..., streamA>>>(...);
