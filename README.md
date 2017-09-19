@@ -37,7 +37,9 @@
 - [1](https://github.com/jamolnng/OpenCL-CUDA-Tutorials/blob/master/CUDA/Tutorial%202%20-%20CUDA%20load%20image/kernel.cu)
 - [2](https://stackoverflow.com/questions/2392250/understanding-cuda-grid-dimensions-block-dimensions-and-threads-organization-s)
 
-
+### 論壇:
+- [Nvidia-China](https://developer.nvidia-china.com/forum.php)
+- []()
 
 ## GPU Spec
 
@@ -1452,12 +1454,79 @@ W=1/16 | 6,24,36,24, 6 |
 -----
 ### Multi-GPU
 
-
+OK: <br/>
+• device-1 is current  <br/>
+• eventB 和 streamB 属于device-1  <br/>
 ```C++
+cudaStream_t streamA, streamB;
+cudaEvent_t eventA, eventB;
+cudaSetDevice( 0);
+cudaStreamCreate( &streamA ); // streamA 和eventA 属于device-0
+cudaEventCreaet( &eventA );
+cudaSetDevice( 1 );
+cudaStreamCreate( &streamB ); // streamB 和 eventB 属于device-1
+cudaEventCreate( &eventB );
+kernel<<<..., streamB>>>(...);
+cudaEventRecord( eventB, streamB);
+cudaEventSynchronize( eventB);
+```
+<br/>
 
+錯誤: <br/>
+• device-1 is current <br/>
+• streamA 属于device-0 <br/>
+```C++
+cudaStream_t streamA, streamB;
+cudaEvent_t eventA, eventB;
+cudaSetDevice( 0);
+cudaStreamCreate( &streamA ); // streamA 和eventA 属于device-0
+cudaEventCreaet( &eventA );
+cudaSetDevice( 1 );
+cudaStreamCreate( &streamB ); // streamB 和 eventB 属于device-1
+cudaEventCreate( &eventB );
+kernel<<<..., streamA>>>(...);
+cudaEventRecord( eventB, streamB);
+cudaEventSynchronize( eventB);
+```
+<br/>
+
+錯誤: <br/>
+• eventA 属于device-0 <br/>
+• streamB 属于device-1 <br/>
+```C++
+cudaStream_t streamA, streamB;
+cudaEvent_t eventA, eventB;
+cudaSetDevice( 0);
+cudaStreamCreate( &streamA ); // streamA 和eventA 属于device-0
+cudaEventCreaet( &eventA );
+cudaSetDevice( 1 );
+cudaStreamCreate( &streamB ); // streamB 和 eventB 属于device-1
+cudaEventCreate( &eventB );
+kernel<<<..., streamB>>>(...);
+cudaEventRecord( eventA, streamB);
+```
+
+OK: <br/>
+• device-0 is current <br/>
+• 同步/查詢其他設備的事件/流是允許的 <br/>
+• device-0 不會執行内核除非device-1 完成它的内核函数 <br/>
+```C++
+cudaStream_t streamA, streamB;
+cudaEvent_t eventA, eventB;
+cudaSetDevice( 0);
+cudaStreamCreate( &streamA ); // streamA 和eventA 属于device-0
+cudaEventCreaet( &eventA );
+cudaSetDevice( 1 );
+cudaStreamCreate( &streamB ); // streamB 和 eventB 属于device-1
+cudaEventCreate( &eventB );
+kernel<<<..., streamB>>>(...);
+cudaEventRecord( eventB, streamB);
+cudaSetDevice( 0);
+cudaEventSynchronize( eventB);
+kernel<<<..., streamA>>>(...);
 ```
 
 
-```C++
 
-```
+
+
