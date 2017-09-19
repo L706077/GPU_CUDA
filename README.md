@@ -1530,6 +1530,8 @@ kernel<<<..., streamA>>>(...);
 <br/>
 
 ### UVA and Multi-GPU Programming
+### Peer-to-peer(P2P) MemCopies
+兩個GPU(device)直接溝通傳輸資料，不透過CPU(Host)傳輸資料。 <br/>
 
 **允許current GPU訪問peer_device GPU:**
 ```C++
@@ -1540,6 +1542,21 @@ kernel<<<..., streamA>>>(...);
 ```C++
  cudaDeviceCanAccessPeer( &accessible, dev_X, dev_Y )
 ```
+
+**peer-to-peer持續使用，直到以下函式呼叫才停止:**
+```C++
+ cudaDeviceDisablePeerAccess(int peerDevice)
+```
+
+**兩個設備之間拷貝字節:** <br/>
+1）如果peer-access允許: 字節在最短的PCIe路徑上傳輸 <br/>
+2）如果peer-access不允許: CUDA驅動通過CPU memory傳輸 <br/>
+```C++
+cudaMemcpyPeerAsync(void* dst_addr, int dst_dev, void* src_addr, int src_dev, size_t num_bytes, cudaStream_t stream)
+```
+此函式功能將數據從srcDev設備上的內存device memory 傳輸到dstDev設備內存。函數cudaMemcpyPeerAsync是相對於主機(Host)和其他設備(other Device)是異步的<br/>
+
+
 
 Example5 : OK: <br/>
 雖然内核在 Gpu2上執行，它可以訪問在Gpu1上分配的内存（通過PCle） <br/>
@@ -1558,13 +1575,8 @@ kernel<<<...>>>( d_A);
 }
 ```
 
-- Peer-to-peer(P2P) memcopies
-兩個設備之間拷貝字節: <br/>
-1）如果peer-access允許: 字節在最短的PCIe路徑上傳輸 <br/>
-2）如果peer-access不允許: CUDA驅動通過CPU memory傳輸 <br/>
-```C++
-cudaMemcpyPeerAsync(void* dst_addr, int dst_dev, void* src_addr, int src_dev, size_t num_bytes, cudaStream_t stream)
-```
+
+
 
 
 
