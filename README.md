@@ -1530,7 +1530,6 @@ kernel<<<..., streamA>>>(...);
 <br/>
 
 ### UVA and Multi-GPU Programming
-- Peer-to-peer(P2P) memcopies
 
 **允許current GPU訪問peer_device GPU:**
 ```C++
@@ -1559,9 +1558,13 @@ kernel<<<...>>>( d_A);
 }
 ```
 
-
-
-
+- Peer-to-peer(P2P) memcopies
+兩個設備之間拷貝字節: <br/>
+1）如果peer-access允許: 字節在最短的PCIe路徑上傳輸 <br/>
+2）如果peer-access不允許: CUDA驅動通過CPU memory傳輸 <br/>
+```C++
+cudaMemcpyPeerAsync(void* dst_addr, int dst_dev, void* src_addr, int src_dev, size_t num_bytes, cudaStream_t stream)
+```
 
 
 
