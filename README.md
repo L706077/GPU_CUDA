@@ -1527,6 +1527,7 @@ cudaSetDevice( 0);
 cudaEventSynchronize( eventB);
 kernel<<<..., streamA>>>(...);
 ```
+<br/>
 
 ### UVA and Multi-GPU Programming
 - Peer-to-peer(P2P) memcopies
@@ -1541,8 +1542,22 @@ kernel<<<..., streamA>>>(...);
  cudaDeviceCanAccessPeer( &accessible, dev_X, dev_Y )
 ```
 
-
-
+Example5 : OK: <br/>
+雖然内核在 Gpu2上執行，它可以訪問在Gpu1上分配的内存（通過PCle） <br/>
+```C++
+int gpu1 = 0;
+int gpu2 = 1;
+cudaSetDevice( gpu1 );
+cudaMalloc( &d_A, num_bytes );
+int accessible = 0;
+cudaDeviceCanAccessPeer( &accessible, gpu2, gpu1 );
+if( accessible )
+{
+cudaSetDevice( gpu2 );
+cudaDeviceEnablePeerAccess( gpu1, 0 );
+kernel<<<...>>>( d_A);
+}
+```
 
 
 
