@@ -1453,7 +1453,8 @@ W=1/16 | 6,24,36,24, 6 |
 
 -----
 ### Multi-GPU
-
+- [1](https://stackoverflow.com/questions/11673154/concurrency-in-cuda-multi-gpu-executions/35010019#35010019)
+- [2](https://stackoverflow.com/questions/10529972/multi-gpu-basic-usage)
 Example1 : OK <br/>
 • device-1 is current  <br/>
 • eventB 和 streamB 属于device-1  <br/>
@@ -1529,7 +1530,6 @@ kernel<<<..., streamA>>>(...);
 ```
 <br/>
 
-### UVA and Multi-GPU Programming
 ### Peer-to-peer(P2P) MemCopies
 兩個GPU(device)直接溝通傳輸資料，不透過CPU(Host)傳輸資料。 <br/>
 
@@ -1555,8 +1555,32 @@ kernel<<<..., streamA>>>(...);
 cudaMemcpyPeerAsync(void* dst_addr, int dst_dev, void* src_addr, int src_dev, size_t num_bytes, cudaStream_t stream)
 ```
 此函式功能將數據從srcDev設備上的內存device memory 傳輸到dstDev設備內存。函數cudaMemcpyPeerAsync是相對於主機(Host)和其他設備(other Device)是異步的<br/>
-
-
+#### Enabling Peer-to-Peer Access
+```C++
+/*
+* enable P2P memcopies between GPUs (all GPUs must be compute capability 2.0 or
+* later (Fermi or later)).
+*/
+inline void enableP2P (int ngpus) {
+	for( int i = 0; i < ngpus; i++ ) {
+		cudaSetDevice(i);
+		for(int j = 0; j < ngpus; j++) {
+			if(i == j) continue;
+			int peer_access_available = 0;
+			cudaDeviceCanAccessPeer(&peer_access_available, i, j);
+			if (peer_access_available) {
+				cudaDeviceEnablePeerAccess(j, 0);
+				printf("> GPU%d enabled direct access to GPU%d\n",i,j);
+			} 
+			else 
+			{
+				printf("(%d, %d)\n", i, j);
+			}
+		}
+	}
+}
+```
+<br/>
 
 Example5 : OK: <br/>
 雖然内核在 Gpu2上執行，它可以訪問在Gpu1上分配的内存（通過PCle） <br/>
@@ -1575,9 +1599,26 @@ kernel<<<...>>>( d_A);
 }
 ```
 
+### UVA and Multi-GPU Programming
 
+```C++
+__global__ void iKernel(float *src, float *dst) {
+const int idx = blockIdx.x * blockDim.x + threadIdx.x;
+dst[idx] = src[idx] * 2.0f;
+}
+```
 
+設置device(0)為當下使用之gpu，
+```C++
+cudaSetDevice(0);
+iKernel<<<grid, block>>>(d_rcv[0], d_src[1]);
+```
 
+設置device(1)為當下使用之gpu，
+```C++
+cudaSetDevice(1);
+iKernel<<<grid, block>>>(d_rcv[1], d_src[0]);
+```
 
 
 
