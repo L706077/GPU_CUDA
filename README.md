@@ -1532,6 +1532,7 @@ kernel<<<..., streamA>>>(...);
 
 ### Peer-to-peer(P2P) MemCopies
 若兩個GPU(device)透過PCIe bus配置在同一個root node上時,兩個GPU(device)直接溝通傳輸資料，不需先複製回CPU(Host)後再傳輸資料。 <br/>
+P2P好處為不必為了inter-GPU的交換而手動維護主機端的内存池<br/>
 
 **允許current GPU訪問peer_device GPU:**
 ```C++
