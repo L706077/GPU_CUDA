@@ -1531,7 +1531,7 @@ kernel<<<..., streamA>>>(...);
 <br/>
 
 ### Peer-to-peer(P2P) MemCopies
-兩個GPU(device)直接溝通傳輸資料，不透過CPU(Host)傳輸資料。 <br/>
+若兩個GPU(device)透過PCIe bus配置在同一個root node上時,兩個GPU(device)直接溝通傳輸資料，不需先複製回CPU(Host)後再傳輸資料。 <br/>
 
 **允許current GPU訪問peer_device GPU:**
 ```C++
