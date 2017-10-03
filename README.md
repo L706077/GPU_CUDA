@@ -37,6 +37,9 @@
 - [1](https://github.com/jamolnng/OpenCL-CUDA-Tutorials/blob/master/CUDA/Tutorial%202%20-%20CUDA%20load%20image/kernel.cu)
 - [2](https://stackoverflow.com/questions/2392250/understanding-cuda-grid-dimensions-block-dimensions-and-threads-organization-s)
 
+### DNN optimal trick
+- [1](http://eyeriss.mit.edu/tutorial.html)
+
 ### 論壇:
 - [Nvidia-China](https://developer.nvidia-china.com/forum.php)
 - []()
