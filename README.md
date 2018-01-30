@@ -46,26 +46,26 @@
 
 ## GPU Spec
 
-|            |    GTX1080   |   GTX1080Ti  | Tesla P40   | Tesla P4 |
-| ---------  | ------------ | ------------ | ---------- | -------- |
-| GPU Name   |     GP104    |     GP102    |   GP102    |  GP104   |
-| Process    |     16nm     |     16nm     |    16nm    |   16nm   |
-| Memory     |  8GB GDDR5X  |  11GB GDDR5X |24GB GDDR5X |8GB GDDR5X|
-|CUDA Cores  |     2560     |     3584     |    3840    |   2560   |
-|SMs	       |       20     |      28    	 |     30    	|    20    |
-|Cores/SM    |	     128    |	    128      |	    128   |	   128   |
-|Memory Clock|   10008 MHz	|   11008 MHz	 | 10008 MHz	| 10008 MHz|
-|Memory Interface(bus)|  256-bit|  352-bit |  384-bit 	|  256-bit |
-|Memory Bandwidth|	320GB/s	|   484 GB/s	 |  347 GB/s	| 192 GB/s |
-| Base Clock |   1607MHz    |	   1480 MHz  |	 1303 MHz	| 810 MHz  |
-|Compute|9TFLOPS(8873GFLOPS)|	11.5TFLOPS   |9TFLOPS(11,758GFLOPS)|5.5TFLOPS(5,443GFLOPS)|
-|Architecture|   Pascal     |	   Pascal    |	 Pascal 	 | Pascal   |
-|Threads/Warp|	   32        |       32     |  	 32     |   32     |
-|MaxThreadDim|(1024, 1024, 64)|            |          	|          |
-|MaxGridSize |(2^32/2, 65535, 65535)| |     |     |
-|MaxThreadPerBlock|  1024	  |     	   |    	|     |
-|PerBlockSharedMem|49152 byte  |     	   |    	|     |
-|PerBlockRegistMem|65536 byte  |     	   |     |     | <br/>
+|            |    GTX1080   |   GTX1080Ti  |    Titan-X   | Tesla P40  | Tesla P4 |
+| ---------  | ------------ | ------------ | ------------ | ---------- | -------- |
+| GPU Name   |     GP104    |     GP102    |     GP102    |    GP102   |  GP104   |
+| Process    |     16nm     |     16nm     |     16nm     |    16nm    |   16nm   |
+| Memory     |  8GB GDDR5X  |  11GB GDDR5X |  12GB GDDR5X |24GB GDDR5X |8GB GDDR5X|
+|CUDA Cores  |     2560     |     3584     |  3584  |  3840    |   2560   |
+|SMs	     |       20     |      28      |	28    |    30  |    20    |
+|Cores/SM    |	     128    |	    128    |	128   |    128 |    128   |
+|Memory Clock|   10008 MHz  |   11008 MHz  |  5005 Mhz  | 10008 MHz  | 10008 MHz|
+|Memory Interface(bus)|  256-bit|  352-bit | 384-bit | 384-bit 	|  256-bit |
+|Memory Bandwidth|  320GB/s |   484 GB/s   |   480 GB/s   |  347 GB/s	| 192 GB/s |
+| Base Clock |   1607MHz    |	 1480 MHz  | 1531 MHz  | 1303 MHz  | 810 MHz  |
+|Compute|9TFLOPS(8873GFLOPS)|	11.5TFLOPS |   11.0TFLOPS  |9TFLOPS(11,758GFLOPS)|5.5TFLOPS(5,443GFLOPS)|
+|Architecture|   Pascal     |	 Pascal    | Pascal |  Pascal | Pascal  |
+|Threads/Warp|	   32         |      32    |   32   |   32    |   32    |
+|MaxThreadDim|(1024, 1024, 64)|            |        |         |         |
+|MaxGridSize |(2^32/2, 65535, 65535)|      |        |         |         |
+|MaxThreadPerBlock|  1024      |       	   |        |         |         |
+|PerBlockSharedMem|49152 byte  |     	   |        |	      |         |
+|PerBlockRegistMem|65536 byte  |     	   |        |         |         | <br/>
 
 **FLOPS = Floating-point operations per second(每秒浮點數運算次數)**<br/>
 **TFLOPS（teraFLOPS）等於每秒一兆（=10^12）**<br/>
