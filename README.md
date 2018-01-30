@@ -58,7 +58,7 @@
 |Memory Interface(bus)|  256-bit|  352-bit | 384-bit | 384-bit 	|  256-bit |
 |Memory Bandwidth|  320GB/s |   484 GB/s   |   480 GB/s   |  347 GB/s	| 192 GB/s |
 | Base Clock |   1607MHz    |	 1480 MHz  | 1531 MHz  | 1303 MHz  | 810 MHz  |
-|Compute|9TFLOPS(8873GFLOPS)|	11.5TFLOPS |   11.0TFLOPS  |9TFLOPS(11,758GFLOPS)|5.5TFLOPS(5,443GFLOPS)|
+|Compute|9TFLOPS(8873GFLOPS)|	11.5TFLOPS | 11.0TFLOPS | 12TFLOPS | 5.5TFLOPS |
 |Architecture|   Pascal     |	 Pascal    | Pascal |  Pascal | Pascal  |
 |Threads/Warp|	   32         |      32    |   32   |   32    |   32    |
 |MaxThreadDim|(1024, 1024, 64)|            |        |         |         |
